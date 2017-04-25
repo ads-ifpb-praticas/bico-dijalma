@@ -1,0 +1,159 @@
+<!--
+ * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 22/04/17 - 16:14
+ -->
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="main">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bico</title>
+    <link rel="icon" type="image/png" href="../static/img/favicon.png" sizes="18 x 18"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/animate.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../static/js/shared/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/shared/bootstrap.min.js"></script>
+
+</head>
+<body ng-controller="IndexController">
+<div class="title-system animated bounce">
+    <h1>Bem vindo ao Bico!</h1>
+</div>
+<div class="form-login animated flipInX">
+    <form ng-show="isLogin()">
+        <label>Entrar</label>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/user.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Nome de usuário" name="user" ng-model="user.username" autofocus>
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/locked.png">
+            </div>
+            <div class="input-dj">
+                <input type="password" placeholder="Senha" name="senha" ng-model="user.password">
+            </div>
+        </div>
+        <br>
+        <div class="login-actions">
+            <button class="button-border-right" ng-click="login()">Entrar</button>
+            <div class="label-rotate">
+                <label>ou</label>
+            </div>
+            <button class="button-border-left" ng-click="setLogin()">Cadastrar</button>
+        </div>
+    </form>
+
+    <form ng-show="isRegister()">
+        <label>Cadastro</label>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/notepad.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Nome" name="name" ng-model="people.name" autofocus>
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/family.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Sobrenome" name="lastname" ng-model="people.lastname">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/phone-call.png">
+            </div>
+            <div class="input-dj">
+                <input type="tel" placeholder="Telefone" name="telephone" ng-model="people.telephone">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/mail.png">
+            </div>
+            <div class="input-dj">
+                <input type="email" placeholder="Email" name="email" ng-model="people.email">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/customers.png">
+            </div>
+            <div class="input-dj">
+                <select name="username" ng-model="user.username" title="Selecione o tipo do usuário">
+                    <option value="">Selecione o tipo do usuário</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Fornecedor">Fornecedor</option>
+                </select>
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/skyline.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Cidade" name="city" ng-model="client.placeOfCare.city">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/neighborhood.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Bairro" name="district" ng-model="client.placeOfCare.district">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/user.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="Nome de usuário" name="username" ng-model="user.username">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/locked.png">
+            </div>
+            <div class="input-dj">
+                <input type="password" placeholder="Senha" name="senha" ng-model="user.password">
+            </div>
+        </div>
+        <br>
+        <div class="login-actions">
+            <button class="button-border-right" ng-click="newUser()">Cadastrar</button>
+            <div class="label-rotate">
+                <label>ou</label>
+            </div>
+            <button class="button-border-left" ng-click="setLogin()">Cancelar</button>
+        </div>
+    </form>
+</div>
+<div class="shadow_base"></div>
+<div class="sunny">
+    <img src="../static/img/sunny.png" alt="sun" id="star"/>
+</div>
+<br><br><br>
+<div ng-class="isLogin() ? 'footer-absolute' : ''">
+    <footer class="footer-relative modal-footer">
+        <img class="icon-footer animated fadeInDownBig" src="../static/img/beak.svg">
+        <div class="info-footer animated slideInLeft">
+            <h5>©Todos os direitos reservados!</h5>
+            <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
+        </div>
+    </footer>
+</div>
+<script src="../static/js/main.js"></script>
+<script src="../static/js/controllers/indexController.js"></script>
+<script src="../static/js/shared/input-file.js"></script>
+<script src="../static/js/shared/sunEffect.js"></script>
+</body>
+</html>

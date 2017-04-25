@@ -1,0 +1,93 @@
+<!--
+ * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 22/04/17 - 21:21
+ -->
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="main">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bico</title>
+    <link rel="icon" type="image/png" href="../../static/img/favicon.png" sizes="18 x 18"/>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/animate.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../../static/js/shared/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/shared/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header" ng-controller="HeaderController">
+    <header>
+        <div class="img-perfil">
+            <a href="#" title="Editar imagem">
+                <img src="../../static/img/man.png" alt="Imagem perfil" class="imagePreview">
+            </a>
+        </div>
+        <div class="details">
+            <button class="btn-sm">Sair</button>
+        </div>
+    </header>
+</div>
+<div class="editImage" ng-show="false">
+    <div class="modal-image">
+        <div class="close">
+            <p>X</p>
+        </div>
+        <div class="modal-title">
+            <h3>Alterar Imagem</h3>
+        </div>
+        <div class="modal-body">
+            <img src="../../static/img/man.png" about="Imagem perfil" id="imagePreview" class="imagePreview"><br/><br/>
+            <button class="no-rotate" onclick="openLoadFile('#imageFile')" id="buttonFile">Carregar imagem</button>
+            <input type="file" class="invisible" id="imageFile"
+                   onchange="setNameButtonCallFile('#buttonFile', '#imageFile','#imagePreview', this)">
+            <div>
+                <button class="button-border-right">Confirmar</button>
+                <div class="label-rotate">
+                    <label>ou</label>
+                </div>
+                <button class="button-border-left">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div class="backdrop"></div>
+</div>
+<div class="page-body">
+    <h4 class="name-user">Olá, Fulano de tal!</h4>
+    <br><br><br><br>
+    <div class="row">
+        <div class="col-sm-4 card">
+            <a href="#">
+                <div class="info tiger">
+                    <h3>Serviços solicitados</h3>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-4 card">
+            <a href="#">
+                <div class="info deep_space">
+                    <h3>Solitar serviço</h3>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-4 card">
+            <a href="#">
+                <div class="info peach">
+                    <h3>Editar perfil</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<footer class="footer-relative modal-footer">
+    <img class="icon-footer animated fadeInDownBig" src="../../static/img/beak.svg">
+    <div class="info-footer animated slideInLeft">
+        <h5>©Todos os direitos reservados!</h5>
+        <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
+    </div>
+</footer>
+<script src="../../static/js/main.js"></script>
+<script src="../../static/js/controllers/headerController.js"></script>
+<script src="../../static/js/shared/input-file.js"></script>
+</body>
+</html>

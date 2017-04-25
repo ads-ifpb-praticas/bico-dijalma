@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: white;
+    background: linear-gradient(to right, #335C67, #456A74, #7D979E);
+    background-size: cover;
+    text-align: center;
+}
+
+header {
+    background: #540B0E;
+    position: relative;
+    width: 100%;
+    display: table;
+    box-shadow: 0 0 20px -2px #540B0E;
+}
+
+header .img-perfil {
+    float: left;
+    top: 0;
+    left: 0
+}
+
+header .info-details {
+    float: right;
+}
+
+header button {
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+  min-width: 50px;
+  border-top-left-radius: 50% !important;
+}
+
+.title-system {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 10px;
+}
+
+.title-system h1 {
+    font-size: 60px !important;
+    text-shadow: -7px 1px #000;
+}
+
+.footer-relative {
+    position: relative;
+    width: 100%;
+}
+
+.footer-absolute {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.icon-footer {
+    position: absolute;
+    width: 80px;
+    top: -82px;
+    right: 20px;
+    animation-delay: 0.5s;
+}
+
+.info-footer {
+    animation-delay: 0.5s;
+}
+
+a {
+    color: white;
+    font-weight: bold;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.form-login {
+    min-width: 300px;
+    width: 30%;
+    background: #9E2A2B;
+    margin: 40px auto 0;
+    padding: 10px;
+    box-shadow: 0 0 10px -2px #000000;
+}
+
+.input {
+    position: relative;
+    width: 90%;
+    background: #540B0E;
+    outline: 2px solid #360809;
+    margin: 10px auto;
+}
+
+.input .icon {
+    position: absolute;
+    top: 7px;
+    left: 5px;
+}
+
+input, select {
+    border: none;
+    background: #540B0E;
+    width: 90%;
+    padding: 8px;
+    outline: none;
+}
+
+button {
+    outline: none;
+}
+
+input::placeholder {
+    color: white;
+    opacity: 0.8;
+}
+
+input:focus, select:focus {
+    outline: none;
+}
+
+.login-actions {
+    position: relative;
+}
+
+button {
+    background: #E09F3E;
+    color: #FFF3B0;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
+    min-width: 100px;
+    border: none;
+    box-shadow: 0 0 10px -2px #3E2C11;
+    display: inline-block;
+}
+
+button:hover{
+  transform: rotate(10deg);
+  transition-duration: 0.3s;
+}
+
+.label-rotate {
+    display: inline-block;
+    transform: rotate(-30deg);
+    margin: 25px;
+}
+
+.login-actions button:hover {
+    box-shadow: 0 0 20px -2px #3E2C11;
+}
+
+.button-border-right {
+    border-bottom-right-radius: 50%;
+}
+
+.button-border-left {
+    border-top-left-radius: 50%;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: #E09F3E;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9E2A2B;
+}
+
+.shadow_base {
+  min-width: 300px;
+  width: 30%;
+  height: 20px;
+  box-shadow: 0 60px 20px -2px #000;
+  margin: 0 auto;
+  border-radius: 70%;
+}
+
+.sunny {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  animation-name: sunny;
+  animation-duration: 2s;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.modal-image {
+    position: relative;
+    min-width: 280px;
+    width: 30%;
+    margin: 0 auto;
+    background: #9E2A2B;
+    z-index: 2;
+    padding: 8px;
+    box-shadow: 0 0 10px -2px #9E2A2B;
+}
+
+.no-rotate:hover {
+    transform: none !important;
+    box-shadow: 0 0 20px -2px #000000;
+}
+
+.imagePreview{
+    max-height: 120px;
+    width: auto;
+}
+
+.page-body {
+    min-height: 400px;
+    min-width: 300px;
+    width: 80%;
+    position: relative;
+    margin: 80px auto 100px;
+    background: #9E2A2B;
+    padding: 10px;
+}
+
+.page-body .name-user {
+    position: absolute;
+    top: -34px;
+    left: 12px;
+}
+
+.card {
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.card .info {
+    width: 99%;
+    height: 100%;
+    box-shadow: 0 0 10px -2px #000;
+    padding: 10px;
+    color: black;
+}
+
+.tiger {
+    background: #A3742E;
+}
+
+.peach {
+    background: #8C8560;
+}
+
+.deep_space {
+    background: #335C67;
+}

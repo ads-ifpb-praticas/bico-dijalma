@@ -17,9 +17,6 @@ public class Client extends Person {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    public Client() {
-    }
-
     public User getUser() {
         return user;
     }

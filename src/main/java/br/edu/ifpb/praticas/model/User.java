@@ -12,13 +12,7 @@ public class User implements Serializable {
     @Column(unique = true)
     private String username;
     private String password;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] photo;
-
-    public User() {
-
-    }
+    private String pathPhoto;
 
     public String getPassword() {
         return password;
@@ -36,12 +30,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public String getPathPhoto() {
+        return pathPhoto;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setPathPhoto(String pathPhoto) {
+        this.pathPhoto = pathPhoto;
     }
-
 }

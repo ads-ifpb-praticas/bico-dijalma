@@ -26,10 +26,7 @@ public class RateClient implements Serializable {
     @OneToOne
     private Client client;
     private int rate;
-
-    public RateClient() {
-    }
-
+    
     public Long getId() {
         return id;
     }

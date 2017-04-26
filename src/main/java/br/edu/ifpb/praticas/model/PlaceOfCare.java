@@ -11,10 +11,7 @@ public class PlaceOfCare implements Serializable {
 
     private String city;
     private String district;
-
-    public PlaceOfCare() {
-    }
-
+    
     public String getCity() {
         return city;
     }

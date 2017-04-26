@@ -25,7 +25,7 @@ public class Person implements Serializable {
             })
     private Long id;
     private String name;
-    private String lastname;
+    private String lastName;
     private String telephone;
     @Column(unique = true)
     private String email;
@@ -49,12 +49,12 @@ public class Person implements Serializable {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getTelephone() {

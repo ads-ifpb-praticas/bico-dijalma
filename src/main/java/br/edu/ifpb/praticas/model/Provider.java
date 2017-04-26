@@ -17,14 +17,14 @@ public class Provider extends Person {
     private User user;
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
-    private int eletric;
+    private int electric;
     private int hydraulic;
     private int paint;
     private int masonry;
     private int repairs;
 
     public Provider() {
-        this.eletric = 0;
+        this.electric = 0;
         this.hydraulic = 0;
         this.paint = 0;
         this.masonry = 0;
@@ -47,12 +47,12 @@ public class Provider extends Person {
         this.status = status;
     }
 
-    public int getEletric() {
-        return eletric;
+    public int getElectric() {
+        return electric;
     }
 
-    public void setEletric(int eletric) {
-        this.eletric = eletric;
+    public void setElectric(int electric) {
+        this.electric = electric;
     }
 
     public int getHydraulic() {

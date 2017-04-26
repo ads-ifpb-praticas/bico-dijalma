@@ -1,6 +1,7 @@
 package br.edu.ifpb.praticas.repository;
 
 import br.edu.ifpb.praticas.model.Client;
+import br.edu.ifpb.praticas.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ClienteRepository extends CrudRepository<Client, Long>{
+
+    Client findByUser(User user);
 }

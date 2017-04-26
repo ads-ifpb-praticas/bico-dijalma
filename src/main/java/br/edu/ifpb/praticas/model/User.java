@@ -12,7 +12,6 @@ public class User implements Serializable {
     @Column(unique = true)
     private String username;
     private String password;
-    private String pathPhoto;
 
     public String getPassword() {
         return password;
@@ -28,13 +27,5 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPathPhoto() {
-        return pathPhoto;
-    }
-
-    public void setPathPhoto(String pathPhoto) {
-        this.pathPhoto = pathPhoto;
     }
 }

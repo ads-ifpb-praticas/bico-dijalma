@@ -3,6 +3,7 @@ package br.edu.ifpb.praticas.model;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ public class Person implements Serializable {
     @Id
     @GenericGenerator(name = "pessoaGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                @Parameter(name = "sequence_name", value = "pessoaGenerator"),
+                    @Parameter(name = "sequence_name", value = "pessoaGenerator"),
                     @Parameter(name = "initial_value", value = "1"),
                     @Parameter(name = "increment_size", value = "1")
 
@@ -32,6 +33,8 @@ public class Person implements Serializable {
     @CPF
     @Column(unique = true)
     private String cpf;
+    @Lazy
+    private String pathPhoto;
 
     public Long getId() {
         return id;
@@ -79,6 +82,14 @@ public class Person implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getPathPhoto() {
+        return pathPhoto;
+    }
+
+    public void setPathPhoto(String pathPhoto) {
+        this.pathPhoto = pathPhoto;
     }
 
     @Override

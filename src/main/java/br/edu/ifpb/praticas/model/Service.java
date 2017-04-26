@@ -25,15 +25,12 @@ public class Service implements Serializable {
             })
     private Long id;
     @Transient
-    private TypeService tipoDeServico;
+    private TypeService typeOfService;
     @OneToOne
     private Client client;
     @OneToOne
     private Provider provider;
-    private String descricao;
-
-    public Service() {
-    }
+    private String details;
 
     public Long getId() {
         return id;
@@ -43,12 +40,12 @@ public class Service implements Serializable {
         this.id = id;
     }
 
-    public TypeService getTipoDeServico() {
-        return tipoDeServico;
+    public TypeService getTypeOfService() {
+        return typeOfService;
     }
 
-    public void setTipoDeServico(TypeService tipoDeServico) {
-        this.tipoDeServico = tipoDeServico;
+    public void setTypeOfService(TypeService typeOfService) {
+        this.typeOfService = typeOfService;
     }
 
     public Client getClient() {
@@ -67,11 +64,11 @@ public class Service implements Serializable {
         this.provider = provider;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDetails() {
+        return details;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDetails(String details) {
+        this.details = details;
     }
 }

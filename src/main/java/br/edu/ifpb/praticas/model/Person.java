@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 16/02/17 - 20:42
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person implements Serializable {
 
     @Id

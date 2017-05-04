@@ -15,9 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io" target="_blank">dijalma</a> on 25/04/17.
@@ -74,7 +72,7 @@ public class ClientServiceTest {
 
     @Test
     public void findAll() throws ClientException {
-        assertEquals(50, clientService.findAll().size());
+        assertTrue(clientService.findAll().size() >= 50);
     }
 
     @Test
@@ -82,6 +80,7 @@ public class ClientServiceTest {
         client.setId(1022L);
         client.setName("Joinhaa");
         client.getUser().setUsername("joinhaa");
+        client.setCpf("221.585.606-81");
         clientService.save(client);
         clientService.delete(1022L);
         Client finded = clientService.findById(1022L);

@@ -45,23 +45,41 @@ public class ProviderServiceTest {
 
     @Test
     public void save() throws ProviderException {
-        
+        Provider save = service.save(provider);
+        assertNotNull(save);
     }
 
     @Test
     public void edit() throws ProviderException {
+        Provider finded = service.findById(51L);
+        finded.setCpf("403.181.861-01");
+        finded.setName("Teste2");
+        Provider edit = service.edit(51L, finded);
+        assertEquals("Teste2", finded.getName());
     }
 
     @Test
     public void findById() throws ProviderException {
+        Provider finded = service.findById(61L);
+        assertNotNull(finded);
     }
 
     @Test
     public void findAll() throws ProviderException {
+        assertTrue(service.findAll().size() >= 50);
     }
 
     @Test
     public void delete() throws ProviderException {
+        provider.setId(4222L);
+        provider.setName("TesteDel");
+        provider.getUser().setUsername("testeDel");
+        provider.setCpf("478.042.371-62");
+        service.save(provider);
+
+        service.delete(4222L);
+        Provider byId = service.findById(4222L);
+        assertNull(byId);
     }
 
 }

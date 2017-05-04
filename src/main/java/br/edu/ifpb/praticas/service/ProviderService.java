@@ -29,7 +29,6 @@ public class ProviderService {
     public Provider edit(Long id, Provider provider) throws ProviderException {
         try {
             Provider one = providerRepository.findOne(id);
-            provider.setId(one.getId());
             one = provider;
             return providerRepository.save(one);
         } catch (Exception ex) {
@@ -38,19 +37,11 @@ public class ProviderService {
     }
 
     public Provider findById(Long id) throws ProviderException {
-        try {
-            return providerRepository.findOne(id);
-        } catch (Exception ex) {
-            throw new ProviderException(ex.getMessage());
-        }
+        return providerRepository.findOne(id);
     }
 
     public List<Provider> findAll() throws ProviderException {
-        try {
-            return (List<Provider>) providerRepository.findAll();
-        } catch (Exception ex) {
-            throw new ProviderException(ex.getMessage());
-        }
+        return (List<Provider>) providerRepository.findAll();
     }
 
     public void delete(Long id) throws ProviderException {

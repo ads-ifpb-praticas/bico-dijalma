@@ -36,19 +36,11 @@ public class ClientService {
     }
 
     public Client findById(Long id) throws ClientException {
-        try {
-            return clientRepository.findOne(id);
-        } catch (Exception ex) {
-            throw new ClientException(ex.getMessage());
-        }
+        return clientRepository.findOne(id);
     }
 
     public List<Client> findAll() throws ClientException {
-        try {
-            return (List<Client>) clientRepository.findAll();
-        } catch (Exception ex) {
-            throw new ClientException(ex.getMessage());
-        }
+        return (List<Client>) clientRepository.findAll();
     }
 
     public void delete(Long id) throws ClientException {

@@ -42,7 +42,7 @@ public class ClientServiceTest {
         user.setPassword("1233ddd");
         client.setId(1001L);
         client.setUser(user);
-        client.setCpf("685.347.391-45");
+        client.setCpf("136.828.384-57");
         client.setName("Dijalma");
         client.setLastName("Silva");
         client.setEmail("dijalmacz@gmail.com");

@@ -71,6 +71,14 @@
                         <format>xml</format>
                     </formats>
                     <check/>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>br.edu.ifpb.praticas.controller.*</ignore>
+                        </ignores>
+                        <excludes>
+                            <exclude>br/edu/ifpb/praticas/controllers/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
                 </configuration>
             </plugin>
         </plugins>

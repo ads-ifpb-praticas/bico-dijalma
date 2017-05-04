@@ -1,7 +1,6 @@
 package br.edu.ifpb.praticas.service;
 
 import br.edu.ifpb.praticas.Exception.ClientException;
-import br.edu.ifpb.praticas.Exception.ClientException;
 import br.edu.ifpb.praticas.model.Client;
 import br.edu.ifpb.praticas.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ public class ClientService {
     public Client edit(Long id, Client client) throws ClientException {
         try {
             Client one = clientRepository.findOne(id);
-            client.setId(one.getId());
             one = client;
             return clientRepository.save(one);
         } catch (Exception ex) {

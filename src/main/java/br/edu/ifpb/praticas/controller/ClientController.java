@@ -51,7 +51,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity save(Client client) {
+    public ResponseEntity save(@RequestBody Client client) {
         try {
             return new ResponseEntity(service.save(client), HttpStatus.OK);
         } catch (ClientException e) {

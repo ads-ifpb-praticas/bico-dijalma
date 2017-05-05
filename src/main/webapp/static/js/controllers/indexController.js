@@ -11,6 +11,15 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
     $scope.user = {};
     $scope.typeUser = "";
 
+    var keys = {
+        8: "backspace",
+        35: "end",
+        36: "home",
+        37: "left",
+        39: "right",
+        46: "delete"
+    };
+
     var clearVariablesNotUser = function () {
         $scope.login = true;
         $scope.person = {};
@@ -35,6 +44,10 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
         }
     };
 
+    $scope.isClient = function () {
+        return $scope.typeUser === "Cliente";
+    };
+
     $scope.registerNewUser = function () {
         if ($scope.typeUser === 'Cliente') {
             registerClient();
@@ -44,22 +57,30 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
     };
 
     var registerClient = function () {
-        $scope.client.person = $scope.person;
+        $scope.client.name = $scope.person.name;
+        $scope.client.lastName = $scope.person.lastName;
+        $scope.client.cpf = $scope.person.cpf;
+        $scope.client.telephone = $scope.person.telephone;
+        $scope.client.email = $scope.person.email;
         $scope.client.user = $scope.user;
 
         $http.post("/client", $scope.client).then(function (response) {
             if (response.status === 200) {
-                console.log("Cadastrado com sucesso!");
+                alert("Cadastrado com sucesso!");
                 clearVariablesNotUser();
             } else {
-                console.log("Não foi possível cadastrar!");
+                alert("Não foi possível cadastrar!");
             }
             console.log(response);
         });
     };
 
     var registerProvider = function () {
-        $scope.provider.person = $scope.person;
+        $scope.provider.name = $scope.person.name;
+        $scope.provider.lastName = $scope.person.lastName;
+        $scope.provider.cpf = $scope.person.cpf;
+        $scope.provider.telephone = $scope.person.telephone;
+        $scope.provider.email = $scope.person.email;
         $scope.provider.user = $scope.user;
 
         $http.post("/provider", $scope.provider).then(function (response) {
@@ -73,4 +94,43 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
         });
     };
 
+    $scope.maskCPF = function (event) {
+
+        var code = event.keyCode;
+        if (keys[code] === undefined) {
+            var cpf = $scope.person.cpf;
+            if (cpf !== undefined) {
+                var length = cpf.length;
+
+                if (length === 3 || length === 7) {
+                    cpf += ".";
+                } else if (length === 11) {
+                    cpf += "-";
+                }
+
+                $scope.person.cpf = cpf;
+            }
+        }
+    };
+
+    $scope.maskTel = function (event) {
+        var code = event.keyCode;
+        if (keys[code] === undefined) {
+
+            var tel = $scope.person.telephone;
+            if (tel !== undefined) {
+                var length = tel.length;
+
+                if (length === 1) {
+                    tel = "(" + tel;
+                } else if (length === 3) {
+                    tel += ") ";
+                } else if (length === 10) {
+                    tel += "-";
+                }
+
+                $scope.person.telephone = tel;
+            }
+        }
+    }
 }]);

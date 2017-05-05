@@ -35,7 +35,6 @@ public class Person implements Serializable {
     @Column(unique = true)
     private String cpf;
     @Lazy
-    @Column(columnDefinition = "varchar(255) default '/static/img/man.png'")
     private String pathPhoto;
 
     public Long getId() {

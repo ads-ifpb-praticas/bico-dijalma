@@ -69,10 +69,20 @@
         </div>
         <div class="input">
             <div class="icon">
+                <img src="../static/img/icons/cpf.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="CPF" name="cpf" ng-model="person.cpf" ng-keyup="maskCPF($event)"
+                       maxlength="14">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
                 <img src="../static/img/icons/phone-call.png">
             </div>
             <div class="input-dj">
-                <input type="tel" placeholder="Telefone" name="telephone" ng-model="person.telephone">
+                <input type="tel" placeholder="Telefone" name="telephone" ng-model="person.telephone"
+                       ng-keyup="maskTel($event)" maxlength="15">
             </div>
         </div>
         <div class="input">
@@ -95,7 +105,7 @@
                 </select>
             </div>
         </div>
-        <div class="input">
+        <div class="input" ng-show="isClient()">
             <div class="icon">
                 <img src="../static/img/icons/skyline.png">
             </div>
@@ -103,7 +113,7 @@
                 <input type="text" placeholder="Cidade" name="city" ng-model="client.placeOfCare.city">
             </div>
         </div>
-        <div class="input">
+        <div class="input" ng-show="isClient()">
             <div class="icon">
                 <img src="../static/img/icons/neighborhood.png">
             </div>
@@ -133,7 +143,7 @@
             <div class="label-rotate">
                 <label>ou</label>
             </div>
-            <button class="button-border-left" ng-click="setLogin()">Cancelar</button>
+            <button class="button-border-left" ng-click="setLogin(true)">Cancelar</button>
         </div>
     </form>
 </div>

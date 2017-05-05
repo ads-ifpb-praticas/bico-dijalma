@@ -2,10 +2,7 @@ package br.edu.ifpb.praticas.model;
 
 import br.edu.ifpb.praticas.enums.StatusEnum;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 17/02/17 - 10:16

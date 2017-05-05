@@ -22,8 +22,4 @@ function changeStar(){
       });
   }
   sunny = !sunny;
-  // star.addClass('animated flash');
-  // setTimeout(function () {
-  //   star.removeClass('animated flash');
-  // }, 1000);
 }

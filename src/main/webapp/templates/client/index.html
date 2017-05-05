@@ -7,37 +7,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bico</title>
-    <link rel="icon" type="image/png" href="../../static/img/favicon.png" sizes="18 x 18"/>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../static/css/animate.css">
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="18 x 18"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="../../static/js/shared/jquery-3.1.1.min.js"></script>
-    <script src="../../static/js/shared/bootstrap.min.js"></script>
+    <script src="/static/js/shared/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/shared/bootstrap.min.js"></script>
 </head>
-<body>
+<body ng-controller="ClientController">
 <div class="header" ng-controller="HeaderController">
     <header>
         <div class="img-perfil">
-            <a href="#" title="Editar imagem">
-                <img src="/static/img/man.png" alt="Imagem perfil" class="imagePreview">
+            <a href="#" title="Editar imagem" ng-click="setUpdateImage()">
+                <img ng-src="{{userAuth.pathPhoto}}" alt="Imagem perfil" class="imagePreview">
             </a>
         </div>
         <div class="details">
-            <button class="btn-sm">Sair</button>
+            <form action="/">
+                <button class="btn-sm">Sair</button>
+            </form>
         </div>
     </header>
 </div>
-<div class="editImage" ng-show="false">
+<div class="editImage" ng-show="showSetImage()">
     <div class="modal-image">
         <div class="close">
-            <p>X</p>
+            <p ng-click="setUpdateImage()">X</p>
         </div>
         <div class="modal-title">
             <h3>Alterar Imagem</h3>
         </div>
         <div class="modal-body">
-            <img src="../../static/img/man.png" about="Imagem perfil" id="imagePreview" class="imagePreview"><br/><br/>
+            <img ng-src="{{userAuth.pathPhoto}}" about="Imagem perfil" id="imagePreview" class="imagePreview"><br/><br/>
             <button class="no-rotate" onclick="openLoadFile('#imageFile')" id="buttonFile">Carregar imagem</button>
             <input type="file" class="invisible" id="imageFile"
                    onchange="setNameButtonCallFile('#buttonFile', '#imageFile','#imagePreview', this)">
@@ -53,7 +55,7 @@
     <div class="backdrop"></div>
 </div>
 <div class="page-body">
-    <h4 class="name-user">Olá, Fulano de tal!</h4>
+    <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}!</h4>
     <br><br><br><br>
     <div class="row">
         <div class="col-sm-4 card">
@@ -80,14 +82,23 @@
     </div>
 </div>
 <footer class="footer-relative modal-footer">
-    <img class="icon-footer animated fadeInDownBig" src="../../static/img/beak.svg">
+    <img class="icon-footer animated fadeInDownBig" src="/static/img/beak.svg">
     <div class="info-footer animated slideInLeft">
         <h5>©Todos os direitos reservados!</h5>
         <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
     </div>
 </footer>
-<script src="../../static/js/main.js"></script>
-<script src="../../static/js/controllers/headerController.js"></script>
-<script src="../../static/js/shared/input-file.js"></script>
+
+<div class="modal-notification">
+    <div class="text-notification">
+        <h4 id="notification">Notificação</h4>
+    </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+<script src="/static/js/controllers/headerController.js"></script>
+<script src="/static/js/controllers/clientController.js"></script>
+<script src="/static/js/shared/input-file.js"></script>
+<script src="/static/js/shared/notificationEffect.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 22/04/17 - 20:43
  */
 
-angular.module('main').controller('IndexController', ['$scope', '$http', function ($scope, $http) {
+angular.module('main').controller('IndexController', ['$scope', '$http', 'authenticationService', function ($scope, $http, authenticationService) {
 
     $scope.login = true;
     $scope.person = {};
@@ -55,6 +55,29 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
             registerProvider();
         }
     };
+
+    $scope.entry = function () {
+
+        $http.post("/login", $scope.user).then(function success(response) {
+
+                var personAuth = {};
+                personAuth.id = response.data.id;
+                personAuth.type = response.data.type;
+                authenticationService.persist(JSON.stringify(personAuth));
+
+                if (response.data.type === "CLIENT") {
+                    $('#clientLogin').trigger('click');
+                } else {
+                    $('#providerLogin').trigger('click');
+                }
+
+
+            }, function error(response) {
+                showNotification("Usuário ou senha inválidos!");
+            }
+        );
+    }
+    ;
 
     var registerClient = function () {
         $scope.client.name = $scope.person.name;
@@ -133,4 +156,5 @@ angular.module('main').controller('IndexController', ['$scope', '$http', functio
             }
         }
     }
-}]);
+}])
+;

@@ -5,11 +5,11 @@
 
     <groupId>br.edu.ifpb.praticas</groupId>
     <artifactId>bico</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>war</packaging>
 
     <name>Bico</name>
-    <description>Projeto da disciplina de Pr�ticas</description>
+    <description>Projeto da disciplina de Práticas</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

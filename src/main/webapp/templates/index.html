@@ -7,14 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bico</title>
-    <link rel="icon" type="image/png" href="../static/img/favicon.png" sizes="18 x 18"/>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/animate.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="18 x 18"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="../static/js/shared/jquery-3.1.1.min.js"></script>
-    <script src="../static/js/shared/bootstrap.min.js"></script>
-
+    <script src="/static/js/shared/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/shared/bootstrap.min.js"></script>
 </head>
 <body ng-controller="IndexController">
 <div class="title-system animated bounce">
@@ -25,15 +24,16 @@
         <label>Entrar</label>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/user.png">
+                <img src="/static/img/icons/user.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Nome de usuário" name="user" ng-model="user.username" autofocus>
+                <input type="text" placeholder="Nome de usuário" name="user" ng-model="user.username" autofocus
+                       autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/locked.png">
+                <img src="/static/img/icons/locked.png">
             </div>
             <div class="input-dj">
                 <input type="password" placeholder="Senha" name="senha" ng-model="user.password">
@@ -41,7 +41,7 @@
         </div>
         <br>
         <div class="login-actions">
-            <button class="button-border-right" ng-click="login()">Entrar</button>
+            <button class="button-border-right" ng-click="entry()">Entrar</button>
             <div class="label-rotate">
                 <label>ou</label>
             </div>
@@ -53,49 +53,50 @@
         <label>Cadastro</label>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/notepad.png">
+                <img src="/static/img/icons/notepad.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Nome" name="name" ng-model="person.name" autofocus>
+                <input type="text" placeholder="Nome" name="name" ng-model="person.name" autofocus autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/family.png">
+                <img src="/static/img/icons/family.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Sobrenome" name="lastName" ng-model="person.lastName">
+                <input type="text" placeholder="Sobrenome" name="lastName" ng-model="person.lastName"
+                       autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/cpf.png">
+                <img src="/static/img/icons/cpf.png">
             </div>
             <div class="input-dj">
                 <input type="text" placeholder="CPF" name="cpf" ng-model="person.cpf" ng-keyup="maskCPF($event)"
-                       maxlength="14">
+                       maxlength="14" autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/phone-call.png">
+                <img src="/static/img/icons/phone-call.png">
             </div>
             <div class="input-dj">
                 <input type="tel" placeholder="Telefone" name="telephone" ng-model="person.telephone"
-                       ng-keyup="maskTel($event)" maxlength="15">
+                       ng-keyup="maskTel($event)" maxlength="15" autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/mail.png">
+                <img src="/static/img/icons/mail.png">
             </div>
             <div class="input-dj">
-                <input type="email" placeholder="Email" name="email" ng-model="person.email">
+                <input type="email" placeholder="Email" name="email" ng-model="person.email" autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/customers.png">
+                <img src="/static/img/icons/customers.png">
             </div>
             <div class="input-dj">
                 <select name="username" ng-model="typeUser" title="Selecione o tipo do usuário">
@@ -107,31 +108,34 @@
         </div>
         <div class="input" ng-show="isClient()">
             <div class="icon">
-                <img src="../static/img/icons/skyline.png">
+                <img src="/static/img/icons/skyline.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Cidade" name="city" ng-model="client.placeOfCare.city">
+                <input type="text" placeholder="Cidade" name="city" ng-model="client.placeOfCare.city"
+                       autocomplete="off">
             </div>
         </div>
         <div class="input" ng-show="isClient()">
             <div class="icon">
-                <img src="../static/img/icons/neighborhood.png">
+                <img src="/static/img/icons/neighborhood.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Bairro" name="district" ng-model="client.placeOfCare.district">
+                <input type="text" placeholder="Bairro" name="district" ng-model="client.placeOfCare.district"
+                       autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/user.png">
+                <img src="/static/img/icons/user.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Nome de usuário" name="username" ng-model="user.username">
+                <input type="text" placeholder="Nome de usuário" name="username" ng-model="user.username"
+                       autocomplete="off">
             </div>
         </div>
         <div class="input">
             <div class="icon">
-                <img src="../static/img/icons/locked.png">
+                <img src="/static/img/icons/locked.png">
             </div>
             <div class="input-dj">
                 <input type="password" placeholder="Senha" name="senha" ng-model="user.password">
@@ -146,24 +150,40 @@
             <button class="button-border-left" ng-click="setLogin(true)">Cancelar</button>
         </div>
     </form>
+
+
+    <form action="/client/index" class="hide-component">
+        <button id="clientLogin" type="submit"></button>
+    </form>
+    <form action="/provider/index" class="hide-component">
+        <button id="providerLogin" type="submit"></button>
+    </form>
 </div>
 <div class="shadow_base"></div>
 <div class="sunny">
-    <img src="../static/img/sunny.png" alt="sun" id="star"/>
+    <img src="/static/img/sunny.png" alt="sun" id="star"/>
 </div>
 <br><br><br>
 <div ng-class="isLogin() ? 'footer-absolute' : ''">
     <footer class="footer-relative modal-footer">
-        <img class="icon-footer animated fadeInDownBig" src="../static/img/beak.svg">
+        <img class="icon-footer animated fadeInDownBig" src="/static/img/beak.svg">
         <div class="info-footer animated slideInLeft">
             <h5>©Todos os direitos reservados!</h5>
             <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
         </div>
     </footer>
 </div>
-<script src="../static/js/main.js"></script>
-<script src="../static/js/controllers/indexController.js"></script>
-<script src="../static/js/shared/input-file.js"></script>
-<script src="../static/js/shared/sunEffect.js"></script>
+
+<div class="modal-notification">
+    <div class="text-notification">
+        <h4 id="notification">Notificação</h4>
+    </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+<script src="/static/js/controllers/indexController.js"></script>
+<script src="/static/js/shared/input-file.js"></script>
+<script src="/static/js/shared/sunEffect.js"></script>
+<script src="/static/js/shared/notificationEffect.js"></script>
 </body>
 </html>

@@ -40,7 +40,6 @@ public class ClientServiceTest {
         User user = new User();
         user.setUsername("dijalmaf");
         user.setPassword("1233ddd");
-        client.setId(1001L);
         client.setUser(user);
         client.setCpf("136.828.384-57");
         client.setName("Dijalma");
@@ -57,34 +56,51 @@ public class ClientServiceTest {
 
     @Test
     public void edit() throws ClientException {
-        Client finded = clientService.findById(1L);
+        Client finded = clientService.findById(40L);
         finded.setName("Chanaína");
         finded.setCpf("926.729.717-14");
-        Client edit = clientService.edit(1L, finded);
+        Client edit = clientService.edit(40L, finded);
         assertEquals("Chanaína", edit.getName());
     }
 
     @Test
     public void findById() throws ClientException {
-        Client finded = clientService.findById(2L);
+        Client finded = clientService.findById(20L);
         assertNotNull(finded.getId());
     }
 
     @Test
     public void findAll() throws ClientException {
-        assertTrue(clientService.findAll().size() >= 50);
+        assertTrue(clientService.findAll().size() >= 9);
     }
 
     @Test
     public void delete() throws ClientException {
-        client.setId(1022L);
         client.setName("Joinhaa");
         client.getUser().setUsername("joinhaa");
         client.setCpf("221.585.606-81");
-        clientService.save(client);
-        clientService.delete(1022L);
-        Client finded = clientService.findById(1022L);
+        Client save = clientService.save(client);
+        Long id = save.getId();
+        clientService.delete(id);
+        Client finded = clientService.findById(id);
         assertNull(finded);
     }
 
+    @Test(expected = ClientException.class)
+    public void saveError() throws ClientException {
+        client.setCpf("399.291.123-12");
+        Client save = clientService.save(client);
+    }
+
+    @Test(expected = ClientException.class)
+    public void editError() throws ClientException {
+        Client finded = clientService.findById(40L);
+        finded.setId(30L);
+        Client edit = clientService.edit(40L, finded);
+    }
+
+    @Test(expected = ClientException.class)
+    public void deleteError() throws ClientException {
+        clientService.delete(1000L);
+    }
 }

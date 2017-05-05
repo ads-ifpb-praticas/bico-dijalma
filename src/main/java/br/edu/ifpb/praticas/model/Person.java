@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     @Id
+    @GeneratedValue(generator = "pessoaGenerator", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "pessoaGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = "pessoaGenerator"),
@@ -34,7 +35,6 @@ public class Person implements Serializable {
     @Column(unique = true)
     private String cpf;
     @Lazy
-    @Column(columnDefinition = "varchar(255) default '/static/img/man.png'")
     private String pathPhoto;
 
     public Long getId() {

@@ -1,6 +1,7 @@
 package br.edu.ifpb.praticas.service;
 
 import br.edu.ifpb.praticas.Exception.ProviderException;
+import br.edu.ifpb.praticas.enums.StatusEnum;
 import br.edu.ifpb.praticas.model.Client;
 import br.edu.ifpb.praticas.model.Provider;
 import br.edu.ifpb.praticas.repository.ProviderRepository;
@@ -20,6 +21,8 @@ public class ProviderService {
 
     public Provider save(Provider provider) throws ProviderException {
         try {
+            provider.setPathPhoto("/static/img/man.png");
+            provider.setStatus(StatusEnum.INATIVO);
             return providerRepository.save(provider);
         } catch (Exception ex) {
             throw new ProviderException(ex.getMessage());
@@ -29,7 +32,6 @@ public class ProviderService {
     public Provider edit(Long id, Provider provider) throws ProviderException {
         try {
             Provider one = providerRepository.findOne(id);
-            provider.setId(one.getId());
             one = provider;
             return providerRepository.save(one);
         } catch (Exception ex) {
@@ -38,19 +40,11 @@ public class ProviderService {
     }
 
     public Provider findById(Long id) throws ProviderException {
-        try {
-            return providerRepository.findOne(id);
-        } catch (Exception ex) {
-            throw new ProviderException(ex.getMessage());
-        }
+        return providerRepository.findOne(id);
     }
 
     public List<Provider> findAll() throws ProviderException {
-        try {
-            return (List<Provider>) providerRepository.findAll();
-        } catch (Exception ex) {
-            throw new ProviderException(ex.getMessage());
-        }
+        return (List<Provider>) providerRepository.findAll();
     }
 
     public void delete(Long id) throws ProviderException {

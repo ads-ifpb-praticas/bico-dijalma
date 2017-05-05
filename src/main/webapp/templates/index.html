@@ -45,7 +45,7 @@
             <div class="label-rotate">
                 <label>ou</label>
             </div>
-            <button class="button-border-left" ng-click="setLogin()">Cadastrar</button>
+            <button class="button-border-left" ng-click="setLogin(false)">Cadastrar</button>
         </div>
     </form>
 
@@ -56,7 +56,7 @@
                 <img src="../static/img/icons/notepad.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Nome" name="name" ng-model="people.name" autofocus>
+                <input type="text" placeholder="Nome" name="name" ng-model="person.name" autofocus>
             </div>
         </div>
         <div class="input">
@@ -64,7 +64,16 @@
                 <img src="../static/img/icons/family.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Sobrenome" name="lastName" ng-model="people.lastName">
+                <input type="text" placeholder="Sobrenome" name="lastName" ng-model="person.lastName">
+            </div>
+        </div>
+        <div class="input">
+            <div class="icon">
+                <img src="../static/img/icons/cpf.png">
+            </div>
+            <div class="input-dj">
+                <input type="text" placeholder="CPF" name="cpf" ng-model="person.cpf" ng-keyup="maskCPF($event)"
+                       maxlength="14">
             </div>
         </div>
         <div class="input">
@@ -72,7 +81,8 @@
                 <img src="../static/img/icons/phone-call.png">
             </div>
             <div class="input-dj">
-                <input type="tel" placeholder="Telefone" name="telephone" ng-model="people.telephone">
+                <input type="tel" placeholder="Telefone" name="telephone" ng-model="person.telephone"
+                       ng-keyup="maskTel($event)" maxlength="15">
             </div>
         </div>
         <div class="input">
@@ -80,7 +90,7 @@
                 <img src="../static/img/icons/mail.png">
             </div>
             <div class="input-dj">
-                <input type="email" placeholder="Email" name="email" ng-model="people.email">
+                <input type="email" placeholder="Email" name="email" ng-model="person.email">
             </div>
         </div>
         <div class="input">
@@ -88,14 +98,14 @@
                 <img src="../static/img/icons/customers.png">
             </div>
             <div class="input-dj">
-                <select name="username" ng-model="user.username" title="Selecione o tipo do usuário">
+                <select name="username" ng-model="typeUser" title="Selecione o tipo do usuário">
                     <option value="">Selecione o tipo do usuário</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Fornecedor">Fornecedor</option>
                 </select>
             </div>
         </div>
-        <div class="input">
+        <div class="input" ng-show="isClient()">
             <div class="icon">
                 <img src="../static/img/icons/skyline.png">
             </div>
@@ -103,7 +113,7 @@
                 <input type="text" placeholder="Cidade" name="city" ng-model="client.placeOfCare.city">
             </div>
         </div>
-        <div class="input">
+        <div class="input" ng-show="isClient()">
             <div class="icon">
                 <img src="../static/img/icons/neighborhood.png">
             </div>
@@ -129,11 +139,11 @@
         </div>
         <br>
         <div class="login-actions">
-            <button class="button-border-right" ng-click="newUser()">Cadastrar</button>
+            <button class="button-border-right" ng-click="registerNewUser()">Cadastrar</button>
             <div class="label-rotate">
                 <label>ou</label>
             </div>
-            <button class="button-border-left" ng-click="setLogin()">Cancelar</button>
+            <button class="button-border-left" ng-click="setLogin(true)">Cancelar</button>
         </div>
     </form>
 </div>

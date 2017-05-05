@@ -36,7 +36,6 @@ public class ProviderServiceTest {
         provider.setName("Teste");
         provider.setTelephone("(83) 99999-9999");
         provider.setLastName("SobreTeste");
-        provider.setId(4012L);
         User user = new User();
         user.setUsername("teste");
         user.setPassword("teste123");
@@ -51,35 +50,52 @@ public class ProviderServiceTest {
 
     @Test
     public void edit() throws ProviderException {
-        Provider finded = service.findById(51L);
+        Provider finded = service.findById(101L);
         finded.setCpf("403.181.861-01");
         finded.setName("Teste2");
-        Provider edit = service.edit(51L, finded);
+        Provider edit = service.edit(101L, finded);
         assertEquals("Teste2", finded.getName());
     }
 
     @Test
     public void findById() throws ProviderException {
-        Provider finded = service.findById(61L);
+        Provider finded = service.findById(105L);
         assertNotNull(finded);
     }
 
     @Test
     public void findAll() throws ProviderException {
-        assertTrue(service.findAll().size() >= 50);
+        assertTrue(service.findAll().size() >= 9);
     }
 
     @Test
     public void delete() throws ProviderException {
-        provider.setId(4222L);
         provider.setName("TesteDel");
         provider.getUser().setUsername("testeDel");
         provider.setCpf("478.042.371-62");
-        service.save(provider);
-
-        service.delete(4222L);
-        Provider byId = service.findById(4222L);
+        Provider save = service.save(provider);
+        Long id = save.getId();
+        service.delete(id);
+        Provider byId = service.findById(id);
         assertNull(byId);
+    }
+
+    @Test(expected = ProviderException.class)
+    public void saveError() throws ProviderException {
+        provider.setCpf("399.291.123-12");
+        Provider save = service.save(provider);
+    }
+
+    @Test(expected = ProviderException.class)
+    public void editError() throws ProviderException {
+        Provider finded = service.findById(108L);
+        finded.setId(106L);
+        Provider edit = service.edit(108L, finded);
+    }
+
+    @Test(expected = ProviderException.class)
+    public void deleteError() throws ProviderException {
+        service.delete(1000L);
     }
 
 }

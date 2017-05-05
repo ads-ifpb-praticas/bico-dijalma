@@ -1,6 +1,7 @@
 package br.edu.ifpb.praticas.service;
 
 import br.edu.ifpb.praticas.Exception.ClientException;
+import br.edu.ifpb.praticas.enums.StatusEnum;
 import br.edu.ifpb.praticas.model.Client;
 import br.edu.ifpb.praticas.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class ClientService {
 
     public Client save(Client client) throws ClientException {
         try {
+            client.setPathPhoto("/static/img/man.png");
+            client.setStatus(StatusEnum.ATIVO);
             return clientRepository.save(client);
         } catch (Exception ex) {
             throw new ClientException(ex.getMessage());
@@ -36,19 +39,11 @@ public class ClientService {
     }
 
     public Client findById(Long id) throws ClientException {
-        try {
-            return clientRepository.findOne(id);
-        } catch (Exception ex) {
-            throw new ClientException(ex.getMessage());
-        }
+        return clientRepository.findOne(id);
     }
 
     public List<Client> findAll() throws ClientException {
-        try {
-            return (List<Client>) clientRepository.findAll();
-        } catch (Exception ex) {
-            throw new ClientException(ex.getMessage());
-        }
+        return (List<Client>) clientRepository.findAll();
     }
 
     public void delete(Long id) throws ClientException {

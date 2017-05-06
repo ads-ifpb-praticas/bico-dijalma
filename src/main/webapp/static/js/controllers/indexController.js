@@ -51,8 +51,10 @@ angular.module('main').controller('IndexController', ['$scope', '$http', 'authen
     $scope.registerNewUser = function () {
         if ($scope.typeUser === 'Cliente') {
             registerClient();
-        } else if ($scope.typeUser === 'Fornecedor') {
+        } else if ($scope.typeUser === 'Prestador de serviços') {
             registerProvider();
+        } else {
+            showNotification("Por favor selecione um tipo de usuário!");
         }
     };
 
@@ -88,13 +90,10 @@ angular.module('main').controller('IndexController', ['$scope', '$http', 'authen
         $scope.client.user = $scope.user;
 
         $http.post("/client", $scope.client).then(function (response) {
-            if (response.status === 200) {
-                alert("Cadastrado com sucesso!");
-                clearVariablesNotUser();
-            } else {
-                alert("Não foi possível cadastrar!");
-            }
-            console.log(response);
+            showNotification("Cliente cadastrado com sucesso!");
+            clearVariablesNotUser();
+        }, function (response) {
+            showNotification("Erro ao cadastrar! \n Verifique se todos os dados foram preenchidos corretamente!", 4000);
         });
     };
 
@@ -107,13 +106,11 @@ angular.module('main').controller('IndexController', ['$scope', '$http', 'authen
         $scope.provider.user = $scope.user;
 
         $http.post("/provider", $scope.provider).then(function (response) {
-            if (response.status === 200) {
-                console.log("Cadastrado com sucesso!");
-                clearVariablesNotUser();
-            } else {
-                console.log("Não foi possível cadastrar!");
-            }
-            console.log(response);
+            showNotification("Prestador cadastrado com sucesso! \n Você receberá em breve um email informando que " +
+                "seu cadastro foi aceito! \n Obrigado", 6000);
+            clearVariablesNotUser();
+        }, function (response) {
+            showNotification("Erro ao cadastrar! \n Verifique se todos os dados foram preenchidos corretamente!", 4000);
         });
     };
 

@@ -5,11 +5,11 @@ package br.edu.ifpb.praticas.enums;
  */
 public enum TypePeople {
 
-    CLIENT("Client"), PROVIDER("Provider");
+    CLIENT("Client"), PROVIDER("Provider"), ADMIN("Admin");
 
     private String name;
 
-    TypePeople(String name){
+    TypePeople(String name) {
         this.name = name;
     }
 

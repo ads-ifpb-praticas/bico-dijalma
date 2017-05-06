@@ -21,7 +21,7 @@ public class Person implements Serializable {
     @GenericGenerator(name = "personGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = "personGenerator"),
-                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "initial_value", value = "2"),
                     @Parameter(name = "increment_size", value = "1")
 
             })

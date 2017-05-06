@@ -56,7 +56,8 @@
                 <img src="/static/img/icons/notepad.png">
             </div>
             <div class="input-dj">
-                <input type="text" placeholder="Nome" name="name" ng-model="person.name" autofocus autocomplete="off">
+                <input type="text" placeholder="Nome" name="name" ng-model="person.name" autofocus autocomplete="off"
+                       required>
             </div>
         </div>
         <div class="input">
@@ -65,7 +66,7 @@
             </div>
             <div class="input-dj">
                 <input type="text" placeholder="Sobrenome" name="lastName" ng-model="person.lastName"
-                       autocomplete="off">
+                       autocomplete="off" required>
             </div>
         </div>
         <div class="input">
@@ -74,7 +75,7 @@
             </div>
             <div class="input-dj">
                 <input type="text" placeholder="CPF" name="cpf" ng-model="person.cpf" ng-keyup="maskCPF($event)"
-                       maxlength="14" autocomplete="off">
+                       maxlength="14" autocomplete="off" required>
             </div>
         </div>
         <div class="input">
@@ -83,7 +84,7 @@
             </div>
             <div class="input-dj">
                 <input type="tel" placeholder="Telefone" name="telephone" ng-model="person.telephone"
-                       ng-keyup="maskTel($event)" maxlength="15" autocomplete="off">
+                       ng-keyup="maskTel($event)" maxlength="15" autocomplete="off" required>
             </div>
         </div>
         <div class="input">
@@ -91,7 +92,8 @@
                 <img src="/static/img/icons/mail.png">
             </div>
             <div class="input-dj">
-                <input type="email" placeholder="Email" name="email" ng-model="person.email" autocomplete="off">
+                <input type="email" placeholder="Email" name="email" ng-model="person.email" autocomplete="off"
+                       required>
             </div>
         </div>
         <div class="input">
@@ -102,7 +104,7 @@
                 <select name="username" ng-model="typeUser" title="Selecione o tipo do usuário">
                     <option value="">Selecione o tipo do usuário</option>
                     <option value="Cliente">Cliente</option>
-                    <option value="Fornecedor">Fornecedor</option>
+                    <option value="Prestador de serviços">Prestador de serviços</option>
                 </select>
             </div>
         </div>
@@ -130,7 +132,7 @@
             </div>
             <div class="input-dj">
                 <input type="text" placeholder="Nome de usuário" name="username" ng-model="user.username"
-                       autocomplete="off">
+                       autocomplete="off" required>
             </div>
         </div>
         <div class="input">
@@ -138,7 +140,7 @@
                 <img src="/static/img/icons/locked.png">
             </div>
             <div class="input-dj">
-                <input type="password" placeholder="Senha" name="senha" ng-model="user.password">
+                <input type="password" placeholder="Senha" name="senha" ng-model="user.password" required>
             </div>
         </div>
         <br>

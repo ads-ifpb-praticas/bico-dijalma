@@ -41,7 +41,7 @@ angular.module('main').controller('IndexController', ['$scope', '$http', 'authen
             $scope.login = !$scope.login;
         } else {
             $scope.login = newValue;
-        }
+        }1
     };
 
     $scope.isClient = function () {
@@ -69,10 +69,11 @@ angular.module('main').controller('IndexController', ['$scope', '$http', 'authen
 
                 if (response.data.type === "CLIENT") {
                     $('#clientLogin').trigger('click');
-                } else {
+                } else if (response.data.type === "PROVIDER") {
                     $('#providerLogin').trigger('click');
+                } else {
+                    $('#adminLogin').trigger('click');
                 }
-
 
             }, function error(response) {
                 showNotification("Usuário ou senha inválidos!");

@@ -23,4 +23,9 @@ public class MainController {
     private String indexProvider() {
         return "provider/index";
     }
+
+    @RequestMapping(value = "/admin/index")
+    private String indexAdmin() {
+        return "admin/index";
+    }
 }

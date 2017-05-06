@@ -25,7 +25,7 @@ public class AdminService {
         return dao.findOne(id);
     }
 
-    public boolean aproveProvider(Long idProvider) throws ProviderException {
+    public boolean approveProvider(Long idProvider) throws ProviderException {
         Provider provider = providerService.findById(idProvider);
         provider.setStatus(StatusEnum.ATIVO);
         providerService.edit(idProvider, provider);

@@ -18,6 +18,8 @@ public class AdminService {
     private AdminRepository dao;
     @Autowired
     private ProviderService providerService;
+    @Autowired
+    private EmailTask emailTask;
 
     public Admin findOne(Long id) {
         return dao.findOne(id);
@@ -27,6 +29,7 @@ public class AdminService {
         Provider provider = providerService.findById(idProvider);
         provider.setStatus(StatusEnum.ATIVO);
         providerService.edit(idProvider, provider);
+        emailTask.sendEMailToUpdateStatusProvider(provider.getEmail());
         return true;
     }
 }

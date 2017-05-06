@@ -17,10 +17,10 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "pessoaGenerator", strategy = GenerationType.AUTO)
-    @GenericGenerator(name = "pessoaGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    @GeneratedValue(generator = "personGenerator", strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "personGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = "sequence_name", value = "pessoaGenerator"),
+                    @Parameter(name = "sequence_name", value = "personGenerator"),
                     @Parameter(name = "initial_value", value = "1"),
                     @Parameter(name = "increment_size", value = "1")
 

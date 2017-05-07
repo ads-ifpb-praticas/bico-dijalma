@@ -72,4 +72,9 @@ public class ProviderController {
         }
 
     }
+
+    @GetMapping("/inactive")
+    public List<Provider> getInactivates() {
+        return service.getInactivates();
+    }
 }

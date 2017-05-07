@@ -54,4 +54,8 @@ public class ProviderService {
             throw new ProviderException(ex.getMessage());
         }
     }
+
+    public List<Provider> getInactivates() {
+        return providerRepository.findByStatus(StatusEnum.INATIVO);
+    }
 }

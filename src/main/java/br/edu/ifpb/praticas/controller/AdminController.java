@@ -1,12 +1,14 @@
 package br.edu.ifpb.praticas.controller;
 
-import br.edu.ifpb.praticas.Exception.ProviderException;
 import br.edu.ifpb.praticas.model.Admin;
 import br.edu.ifpb.praticas.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io" target="_blank">dijalma</a> on 06/05/17.
@@ -30,19 +32,16 @@ public class AdminController {
         }
     }
 
-    @PutMapping("/accept/{id}")
+    @GetMapping("/accept/{id}")
     public ResponseEntity approveProvider(@PathVariable Long id) {
 
-        try {
-            boolean b = service.approveProvider(id);
-            if (b) {
-                return new ResponseEntity("Prestador ativado com sucesso", HttpStatus.OK);
-            } else {
-                return new ResponseEntity("Erro ao ativar prestador!", HttpStatus.NOT_FOUND);
-            }
-        } catch (ProviderException e) {
-            return new ResponseEntity("Operação inválida!", HttpStatus.NOT_ACCEPTABLE);
+        boolean b = service.approveProvider(id);
+        if (b) {
+            return new ResponseEntity(id, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Erro ao ativar prestador!", HttpStatus.NOT_FOUND);
         }
+
     }
 
 }

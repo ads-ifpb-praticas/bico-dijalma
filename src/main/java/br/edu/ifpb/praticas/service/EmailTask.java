@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by <a href="http://dijalmasilva.github.io" target="_blank">dijalma</a> on 06/05/17.
  */
@@ -44,6 +46,12 @@ public class EmailTask {
                         mailSender.send(messagePreparator);
                         send = true;
                     } catch (MailException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        sleep(3000);
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

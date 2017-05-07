@@ -19,9 +19,7 @@
 <div class="header" ng-controller="HeaderController">
     <header>
         <div class="img-perfil">
-            <a href="#" title="Editar imagem" ng-click="setUpdateImage()">
-                <img ng-src="{{userAuth.pathPhoto}}" alt="Imagem perfil" class="imagePreview">
-            </a>
+            <img ng-src="{{userAuth.pathPhoto}}" alt="Imagem perfil" class="imagePreview">
         </div>
         <div class="details">
             <form action="/">
@@ -30,54 +28,13 @@
         </div>
     </header>
 </div>
-<div class="editImage" ng-show="showSetImage()">
-    <div class="modal-image">
-        <div class="close">
-            <p ng-click="setUpdateImage()">X</p>
-        </div>
-        <div class="modal-title">
-            <h3>Alterar Imagem</h3>
-        </div>
-        <div class="modal-body">
-            <img ng-src="{{userAuth.pathPhoto}}" about="Imagem perfil" id="imagePreview" class="imagePreview"><br/><br/>
-            <button class="no-rotate" onclick="openLoadFile('#imageFile')" id="buttonFile">Carregar imagem</button>
-            <input type="file" class="invisible" id="imageFile"
-                   onchange="setNameButtonCallFile('#buttonFile', '#imageFile','#imagePreview', this)">
-            <div>
-                <button class="button-border-right">Confirmar</button>
-                <div class="label-rotate">
-                    <label>ou</label>
-                </div>
-                <button class="button-border-left">Cancelar</button>
-            </div>
-        </div>
-    </div>
-    <div class="backdrop"></div>
-</div>
 <div class="page-body">
     <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}!</h4>
-    <br><br><br><br>
-    <div class="row">
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info tiger">
-                    <h3>Serviços solicitados</h3>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info deep_space">
-                    <h3>Solitar serviço</h3>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info peach">
-                    <h3>Editar perfil</h3>
-                </div>
-            </a>
+    <br><br>
+    <div ng-repeat="provider in providers">
+        <div class="card-accordion">
+            <h4>{{provider.name + " " + provider.lastName}}</h4>
+            <button class="btn-sm" ng-click="activateProvider(provider.id)">Ativar</button>
         </div>
     </div>
 </div>

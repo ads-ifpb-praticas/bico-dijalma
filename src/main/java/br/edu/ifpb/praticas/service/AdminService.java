@@ -25,11 +25,22 @@ public class AdminService {
         return dao.findOne(id);
     }
 
-    public boolean approveProvider(Long idProvider) throws ProviderException {
-        Provider provider = providerService.findById(idProvider);
-        provider.setStatus(StatusEnum.ATIVO);
-        providerService.edit(idProvider, provider);
-        emailTask.sendEMailToUpdateStatusProvider(provider.getEmail());
-        return true;
+    public boolean approveProvider(Long idProvider) {
+        try {
+            Provider provider = providerService.findById(idProvider);
+            if (provider != null) {
+                provider.setStatus(StatusEnum.ATIVO);
+                providerService.edit(idProvider, provider);
+                Runnable run = () -> emailTask.sendEMailToUpdateStatusProvider(provider.getEmail());
+                new Thread(run).start();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ProviderException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

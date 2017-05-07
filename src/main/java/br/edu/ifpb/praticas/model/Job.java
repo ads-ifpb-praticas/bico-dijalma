@@ -26,15 +26,18 @@ public class Job implements Serializable {
 
             })
     private Long id;
-    @Transient
+    @Enumerated(EnumType.STRING)
     private TypeService typeOfService;
     @OneToOne
     private Client client;
     @OneToMany(mappedBy = "job")
     private List<Bid> bids;
+    @OneToOne
+    private Bid dealBead;
     private String details;
     private LocalDate dealDate;
     private StatusJob status;
+    private BigDecimal willingToPay;
 
     public Long getId() {
         return id;
@@ -98,5 +101,21 @@ public class Job implements Serializable {
 
     public void setDealDate(LocalDate dealDate) {
         this.dealDate = dealDate;
+    }
+
+    public Bid getDealBead() {
+        return dealBead;
+    }
+
+    public void setDealBead(Bid dealBead) {
+        this.dealBead = dealBead;
+    }
+
+    public BigDecimal getWillingToPay() {
+        return willingToPay;
+    }
+
+    public void setWillingToPay(BigDecimal willingToPay) {
+        this.willingToPay = willingToPay;
     }
 }

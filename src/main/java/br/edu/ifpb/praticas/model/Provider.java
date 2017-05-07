@@ -18,14 +18,14 @@ public class Provider extends Person {
     private int hydraulic;
     private int paint;
     private int masonry;
-    private int repairs;
+    private int repair;
 
     public Provider() {
         this.electric = 0;
         this.hydraulic = 0;
         this.paint = 0;
         this.masonry = 0;
-        this.repairs = 0;
+        this.repair = 0;
     }
 
     public User getUser() {
@@ -76,11 +76,11 @@ public class Provider extends Person {
         this.masonry = masonry;
     }
 
-    public int getRepairs() {
-        return repairs;
+    public int getRepair() {
+        return repair;
     }
 
-    public void setRepairs(int repairs) {
-        this.repairs = repairs;
+    public void setRepair(int repair) {
+        this.repair = repair;
     }
 }

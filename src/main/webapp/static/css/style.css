@@ -105,12 +105,21 @@ a:hover {
     left: 5px;
 }
 
-input, select {
+input, select, textarea {
     border: none;
     background: #540B0E;
     width: 90%;
     padding: 8px;
     outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+textarea::placeholder {
+    color: white;
+    opacity: 0.8;
 }
 
 button {
@@ -248,31 +257,6 @@ button:hover {
     left: 12px;
 }
 
-.card {
-    height: 200px;
-    margin-bottom: 10px;
-}
-
-.card .info {
-    width: 99%;
-    height: 100%;
-    box-shadow: 0 0 10px -2px #000;
-    padding: 10px;
-    color: black;
-}
-
-.tiger {
-    background: #A3742E;
-}
-
-.peach {
-    background: #8C8560;
-}
-
-.deep_space {
-    background: #335C67;
-}
-
 .hide-component {
     display: none;
 }
@@ -316,4 +300,10 @@ button:hover {
     position: absolute;
     right: 20px;
     top: 2px;
+}
+
+.form-service {
+    width: 60%;
+    min-width: 300px;
+    margin: 0 auto;
 }

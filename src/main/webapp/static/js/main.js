@@ -35,8 +35,12 @@ app.factory('locateUser', function (authenticationService, $http, $rootScope) {
                 $http.get("/client/" + personAuth.id).then(function (response) {
                     $rootScope.userAuth = response.data;
                 });
-            } else {
+            } else if (personAuth.type === "PROVIDER") {
                 $http.get("/provider/" + personAuth.id).then(function (response) {
+                    $rootScope.userAuth = response.data;
+                });
+            } else {
+                $http.get("/admin/" + personAuth.id).then(function (response) {
                     $rootScope.userAuth = response.data;
                 });
             }

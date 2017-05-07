@@ -5,7 +5,7 @@
 
     <groupId>br.edu.ifpb.praticas</groupId>
     <artifactId>bico</artifactId>
-    <version>0.0.3</version>
+    <version>0.1.0</version>
     <packaging>war</packaging>
 
     <name>Bico</name>
@@ -25,6 +25,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>

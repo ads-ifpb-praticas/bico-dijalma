@@ -291,3 +291,29 @@ button:hover {
     max-width: 280px;
     margin: 0 auto;
 }
+
+.card-accordion {
+    position: relative;
+    display: table;
+    text-align: left;
+    padding: 12px;
+    margin: 0 auto 10px;
+    width: 70%;
+    border-bottom: 1px solid antiquewhite;
+}
+
+.card-accordion:hover {
+    transition-duration: 0.4s;
+    border-bottom: 3px solid antiquewhite;
+}
+
+.card-accordion h4, .card-accordion button {
+    margin: 0 0 0 10px;
+    display: inline-block;
+}
+
+.card-accordion button {
+    position: absolute;
+    right: 20px;
+    top: 2px;
+}

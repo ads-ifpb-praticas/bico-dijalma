@@ -1,24 +1,26 @@
 package br.edu.ifpb.praticas.model;
 
+import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.enums.TypeService;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 17/02/17 - 10:52
  */
 @Entity
-public class Service implements Serializable {
+public class Job implements Serializable {
 
     @Id
-    @GenericGenerator(name = "servicoGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    @GeneratedValue(generator = "jobGenerator")
+    @GenericGenerator(name = "jobGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "servicoGenerator"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "jobGenerator"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
 
@@ -28,9 +30,11 @@ public class Service implements Serializable {
     private TypeService typeOfService;
     @OneToOne
     private Client client;
-    @OneToOne
-    private Provider provider;
+    @OneToMany(mappedBy = "job")
+    private List<Bid> bids;
     private String details;
+    private LocalDate dealDate;
+    private StatusJob status;
 
     public Long getId() {
         return id;
@@ -56,19 +60,43 @@ public class Service implements Serializable {
         this.client = client;
     }
 
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
     public String getDetails() {
         return details;
     }
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
+
+    public void addBid(Bid bid) {
+        this.bids.add(bid);
+    }
+
+    public void removeBid(Bid bid) {
+        this.bids.remove(bid);
+    }
+
+    public StatusJob getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusJob status) {
+        this.status = status;
+    }
+
+    public LocalDate getDealDate() {
+        return dealDate;
+    }
+
+    public void setDealDate(LocalDate dealDate) {
+        this.dealDate = dealDate;
     }
 }

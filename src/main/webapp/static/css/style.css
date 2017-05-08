@@ -307,3 +307,15 @@ button:hover {
     min-width: 300px;
     margin: 0 auto;
 }
+
+button:disabled {
+    opacity: 0.8;
+}
+
+button:disabled:hover {
+    transform: rotate(0deg);
+}
+
+.label-lg {
+    font-size: 20px;
+}

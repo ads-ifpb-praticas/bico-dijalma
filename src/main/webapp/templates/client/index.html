@@ -57,21 +57,43 @@
 <div class="page-body">
     <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}!</h4>
     <br><br>
-    <div class="container">
+    <div id="services">
         <h3>Serviços</h3>
         <ul class="nav nav-tabs">
-            <li ng-class="getTabEquals(1) ? 'active': ''"><a href="#"
-                                                             ng-click="setTab(1)">Solicitados</a></li>
-            <li ng-class="getTabEquals(2) ? 'active': ''"><a href="#" ng-click="setTab(2)">Fechados</a></li>
-            <li ng-class="getTabEquals(3) ? 'active': ''"><a href="#" ng-click="setTab(3)">Finalizados</a></li>
-            <li class="active" ng-class="getTabEquals(4) ? 'active': ''"><a href="#" ng-click="setTab(4)">Novo</a></li>
+            <li ng-class="getTabEquals(1) ? 'active': ''"><a href="#services" ng-click="setTab(1)">Solicitados</a></li>
+            <li ng-class="getTabEquals(2) ? 'active': ''"><a href="#services" ng-click="setTab(2)">Fechados</a></li>
+            <li ng-class="getTabEquals(3) ? 'active': ''"><a href="#services" ng-click="setTab(3)">Finalizados</a></li>
+            <li class="active" ng-class="getTabEquals(4) ? 'active': ''"><a href="#services" ng-click="setTab(4)">Novo</a></li>
         </ul>
     </div>
     <br><br>
 
-    <div ng-show="getTabEquals(1)">tab1</div>
-    <div ng-show="getTabEquals(2)">tab2</div>
-    <div ng-show="getTabEquals(3)">tab3</div>
+    <div ng-show="getTabEquals(1)">
+        <div>
+            <div ng-show="lessEqualsThanZero(jobsOpen.length)">
+                <h4>Não há serviços solicitados!</h4>
+            </div>
+            <div ng-repeat="jobOpen in jobsOpen" class="card-accordion">
+                <label class="label-lg">Tipo de serviço: {{services[jobOpen.typeOfService]}}</label><br/><br/>
+                <h5><label>Detalhes</label></h5>
+                <p>{{jobOpen.details}}</p>
+                <div align="right">
+                    <label>Número de propostas: {{jobOpen.bids.length}}</label>
+                </div>
+                <button disabled="{{lessEqualsThanZero(jobOpen.bids.length)}}" ng-click="">Ver propostas</button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(2)">
+        <div ng-show="lessEqualsThanZero(jobsClose.length)">
+            <h4>Não há serviços fechados!</h4>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(3)">
+        <div ng-show="lessEqualsThanZero(jobsFinish.length)">
+            <h4>Não há serviços finalizados!</h4>
+        </div>
+    </div>
     <div ng-show="getTabEquals(4)">
         <form class="form-service">
             <label>Preecha todos os campos!</label>
@@ -80,13 +102,14 @@
                     <img src="/static/img/icons/jobs.png">
                 </div>
                 <div class="input-dj">
-                    <select name="typeService" ng-model="job.typeOfService" title="Selecione o tipo de serviço" required>
+                    <select name="typeService" ng-model="job.typeOfService" title="Selecione o tipo de serviço"
+                            required>
                         <option value="">Selecione o tipo de serviço</option>
-                        <option value="ELETRIC">Elétrica</option>
                         <option value="HYDRAULIC">Hidráulico</option>
                         <option value="PAINT">Pintura</option>
                         <option value="MASONRY">Alvenaria</option>
                         <option value="REPAIR">Reparo</option>
+                        <option value="ELECTRIC">Elétrica</option>
                     </select>
                 </div>
             </div>

@@ -33,7 +33,7 @@ public class Job implements Serializable {
     @OneToMany(mappedBy = "job")
     private List<Bid> bids;
     @OneToOne
-    private Bid dealBead;
+    private Bid dealBid;
     private String details;
     private LocalDate dealDate;
     private StatusJob status;
@@ -103,12 +103,12 @@ public class Job implements Serializable {
         this.dealDate = dealDate;
     }
 
-    public Bid getDealBead() {
-        return dealBead;
+    public Bid getDealBid() {
+        return dealBid;
     }
 
-    public void setDealBead(Bid dealBead) {
-        this.dealBead = dealBead;
+    public void setDealBid(Bid dealBid) {
+        this.dealBid = dealBid;
     }
 
     public BigDecimal getWillingToPay() {

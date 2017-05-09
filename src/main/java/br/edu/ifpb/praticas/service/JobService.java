@@ -29,7 +29,6 @@ public class JobService {
     }
 
     public Job save(Job job) {
-        job.setBids(new ArrayList<>());
         job.setStatus(StatusJob.ABERTO);
         return dao.save(job);
     }

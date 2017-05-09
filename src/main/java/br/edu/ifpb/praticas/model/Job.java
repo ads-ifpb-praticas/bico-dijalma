@@ -30,8 +30,6 @@ public class Job implements Serializable {
     private TypeService typeOfService;
     @OneToOne
     private Client client;
-    @OneToMany(mappedBy = "job")
-    private List<Bid> bids;
     @OneToOne
     private Bid dealBid;
     private String details;
@@ -69,22 +67,6 @@ public class Job implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public List<Bid> getBids() {
-        return bids;
-    }
-
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
-    }
-
-    public void addBid(Bid bid) {
-        this.bids.add(bid);
-    }
-
-    public void removeBid(Bid bid) {
-        this.bids.remove(bid);
     }
 
     public StatusJob getStatus() {

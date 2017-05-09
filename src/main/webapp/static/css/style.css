@@ -226,6 +226,8 @@ button:hover {
     width: 60%;
     margin: 100px auto;
     background: #9E2A2B;
+    max-height: 500px;
+    overflow-y: auto;
     z-index: 3;
     padding: 8px;
     box-shadow: 0 0 10px -2px #9E2A2B;
@@ -333,4 +335,14 @@ button:disabled:hover {
 
 .label-md {
     font-size: 16px;
+}
+
+.info-count {
+    background: #081e1f;
+    color: #ffdd47;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 1px;
 }

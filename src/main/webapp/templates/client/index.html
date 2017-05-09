@@ -63,7 +63,8 @@
             <li ng-class="getTabEquals(1) ? 'active': ''"><a href="#services" ng-click="setTab(1)">Solicitados</a></li>
             <li ng-class="getTabEquals(2) ? 'active': ''"><a href="#services" ng-click="setTab(2)">Fechados</a></li>
             <li ng-class="getTabEquals(3) ? 'active': ''"><a href="#services" ng-click="setTab(3)">Finalizados</a></li>
-            <li class="active" ng-class="getTabEquals(4) ? 'active': ''"><a href="#services" ng-click="setTab(4)">Novo</a></li>
+            <li class="active" ng-class="getTabEquals(4) ? 'active': ''"><a href="#services"
+                                                                            ng-click="setTab(4)">Novo</a></li>
         </ul>
     </div>
     <br><br>
@@ -77,10 +78,8 @@
                 <label class="label-lg">Tipo de serviço: {{services[jobOpen.typeOfService]}}</label><br/><br/>
                 <h5><label>Detalhes</label></h5>
                 <p>{{jobOpen.details}}</p>
-                <div align="right">
-                    <label>Número de propostas: {{jobOpen.bids.length}}</label>
-                </div>
-                <button disabled="{{lessEqualsThanZero(jobOpen.bids.length)}}" ng-click="">Ver propostas</button>
+                <button ng-click="showBidsOfJob(bids[jobOpen.id])">Ver propostas <label class="info-count">{{bids[jobOpen.id].length}}</label>
+                </button>
             </div>
         </div>
     </div>
@@ -148,6 +147,35 @@
         <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
     </div>
 </footer>
+
+<div class="modal-fixed" ng-show="showBidsFromJob()">
+    <div class="modal-bid">
+        <div class="close">
+            <p ng-click="closeBidsOfJob()">X</p>
+        </div>
+        <div class="modal-title">
+            <h3>Propostas</h3>
+        </div>
+        <div class="modal-body">
+            <div class="card-accordion" ng-repeat="bidJob in bidsJob">
+                <button>Aceitar</button>
+                <label class="label-lg">Prestador do serviço: {{bidJob.provider.name + " " +
+                    bidJob.provider.lastName}}</label>
+                <br/>
+                <label>Detalhes da prestador</label>
+                <p>Telefone: {{bidJob.provider.telephone}}</p>
+                <p>Email: {{bidJob.provider.email}}</p>
+                <p>Pontos obtidos na área do serviço: {{bidJob.provider[bidJob.job.typeOfService.toUpperCase()]}}</p>
+                <br/>
+                <label>Informações da proposta</label>
+                <p>Data: {{bidJob.possibleDate.dayOfMonth + "/" + bidJob.possibleDate.monthValue + "/" +
+                    bidJob.possibleDate.year + " - " + dayOfWeek[bidJob.possibleDate.dayOfWeek]}}</p>
+                <p>Valor cobrado: {{bidJob.value | currency}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="backdrop"></div>
+</div>
 
 <div class="modal-notification">
     <div class="text-notification">

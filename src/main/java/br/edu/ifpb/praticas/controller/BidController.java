@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by <a href="http://dijalmasilva.github.io" target="_blank">dijalma</a> on 09/05/17.
  */
@@ -46,5 +48,16 @@ public class BidController {
         } else {
             return new ResponseEntity("Não foi possível atualizar a proposta!", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/client/{idClient}/{idJob}")
+    public List<Bid> findBidsFromIdClient(@PathVariable Long idClient, @PathVariable Long idJob) {
+        List<Bid> bids = service.findBidsFromIdClient(idClient, idJob);
+        return bids;
+    }
+
+    @GetMapping("/job/{id}")
+    public List<Bid> findBidsFromJob(@PathVariable Long id) {
+        return service.findBidsFromJob(id);
     }
 }

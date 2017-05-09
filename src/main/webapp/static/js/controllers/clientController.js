@@ -6,6 +6,7 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
 
     var updateImage = false;
     var tab = 4;
+    var viewBids = false;
 
     $scope.services = {
         'ELECTRIC': 'Elétrica',
@@ -15,10 +16,21 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
         'REPAIR': 'Reparo'
     };
 
+    $scope.dayOfWeek = {
+        "MONDAY": "Segunda-Feira",
+        "TUESDAY": "Terça-Feira",
+        "WEDNESDAY": "Quarta-Feira",
+        "THURSDAY": "Quinta-Feira",
+        "FRIDAY": "Sexta-Feira",
+        "SATURDAY": "Sábado",
+        "SUNDAY": "Domingo"
+    };
+
     $scope.job = {};
     $scope.jobsOpen = [];
     $scope.jobsClose = [];
     $scope.jobsFinish = [];
+    $scope.bids = [];
 
     locateUser.findUser();
 
@@ -70,10 +82,34 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
 
     $scope.getJobsOpen = function () {
         $http.get("/job/open/client/" + $rootScope.userAuth.id).then(function (response) {
-            console.log(response.data);
             $scope.jobsOpen = response.data;
+            for (var i = 0; i < $scope.jobsOpen.length; i++) {
+                $scope.getBidFromJob($scope.jobsOpen[i].id);
+            }
         }, function (response) {
             $scope.jobsOpen = [];
         });
     };
+
+    $scope.getBidFromJob = function (idJob) {
+        $http.get("/bid/job/" + idJob).then(function (response) {
+            $scope.bids[idJob] = response.data;
+        }, function (response) {
+            console.log(response);
+        })
+    };
+
+    $scope.showBidsOfJob = function (bids) {
+        $scope.bidsJob = bids;
+        viewBids = true;
+    };
+
+    $scope.showBidsFromJob = function () {
+        return viewBids;
+    };
+
+    $scope.closeBidsOfJob = function () {
+        $scope.bidsJob = [];
+        viewBids = false;
+    }
 }]);

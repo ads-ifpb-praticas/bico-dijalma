@@ -30,7 +30,7 @@ public class Bid implements Serializable {
     private Job job;
     @OneToOne
     private Provider provider;
-    private LocalDate possibleData;
+    private LocalDate possibleDate;
     private BigDecimal value;
 
     public Long getId() {
@@ -65,11 +65,11 @@ public class Bid implements Serializable {
         this.value = value;
     }
 
-    public LocalDate getPossibleData() {
-        return possibleData;
+    public LocalDate getPossibleDate() {
+        return possibleDate;
     }
 
-    public void setPossibleData(LocalDate possibleData) {
-        this.possibleData = possibleData;
+    public void setPossibleDate(LocalDate possibleDate) {
+        this.possibleDate = possibleDate;
     }
 }

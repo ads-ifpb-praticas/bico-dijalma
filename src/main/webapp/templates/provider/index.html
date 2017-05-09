@@ -30,7 +30,7 @@
         </div>
     </header>
 </div>
-<div class="editImage" ng-show="showSetImage()">
+<div class="modal-fixed" ng-show="showSetImage()">
     <div class="modal-image">
         <div class="close">
             <p ng-click="setUpdateImage()">X</p>
@@ -102,8 +102,8 @@
             <label>Detalhes</label>
             <p>Tipo de serviço: {{services[jobOpen.typeOfService]}}</p>
             <p>Descrição: {{jobOpen.details}}</p>
-            <p>Proposto a pagar: {{jobOpen.willingToPay}}</p>
-            <button disabled="{{lessEqualsThanZero(jobOpen.bids.length)}}" ng-click="">Fazer proposta</button>
+            <p>Proposto a pagar: <label>{{jobOpen.willingToPay | currency}}</label></p>
+            <button ng-click="setShowNewBid(jobOpen)">Fazer proposta</button>
         </div>
     </div>
     <div ng-show="getTabEquals(2)">
@@ -138,6 +138,49 @@
         <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
     </div>
 </footer>
+
+<div class="modal-fixed" ng-show="getShowNewBid()">
+    <div class="modal-bid">
+        <div class="close">
+            <p ng-click="closeShowNewBid()">X</p>
+        </div>
+        <div class="modal-title">
+            <h3>Proposta</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <label class="label label-default">Data para realizar serviço</label>
+                <div class="input">
+                    <div class="icon">
+                        <img src="/static/img/icons/calendar.png">
+                    </div>
+                    <div class="input-dj">
+                        <input type="date" ng-model="bid.possibleDate"/>
+                    </div>
+                </div>
+                <label class="label label-default">Valor pelo serviço</label>
+                <div class="input">
+                    <div class="icon">
+                        <img src="/static/img/icons/give-money.png">
+                    </div>
+                    <div class="input-dj">
+                        <input ng-model="bid.value" placeholder="Valor a cobrar">
+                    </div>
+                    Em reais: {{bid.value | currency}}
+                </div>
+                <br/>
+                <div>
+                    <button class="button-border-right" ng-click="newBid()">Confirmar</button>
+                    <div class="label-rotate">
+                        <label>ou</label>
+                    </div>
+                    <button class="button-border-left" ng-click="closeShowNewBid()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="backdrop"></div>
+</div>
 
 <div class="modal-notification">
     <div class="text-notification">

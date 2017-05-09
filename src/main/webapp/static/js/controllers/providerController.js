@@ -8,6 +8,8 @@ angular.module('main').controller('ProviderController',
 
             locateUser.findUser();
             var tab = 4;
+            var showNewBid = false;
+            $scope.bid = {};
 
             $scope.services = {
                 'ELECTRIC': 'Elétrica',
@@ -34,7 +36,6 @@ angular.module('main').controller('ProviderController',
                 if ($scope.typeOfService !== "") {
                     $http.get("/job/type/" + $scope.typeOfService).then(function (response) {
                         $scope.jobsOpenTypeService = response.data;
-                        console.log(response.data);
                         if ($scope.lessEqualsThanZero(response.data)) {
                             showNotification("Não há serviços disponíves desse tipo!");
                         }
@@ -46,13 +47,37 @@ angular.module('main').controller('ProviderController',
                 }
             };
 
-            $scope.newBid = function (job) {
-                job.bid = $scope.bid;
-                $http.put("/job/" + job.id, job).then(function (response) {
+            $scope.newBid = function () {
+                console.log($scope.bid);
+                $http.post("/bid/", $scope.bid).then(function (response) {
+                    $scope.closeShowNewBid();
                     console.log(response.data);
+                    showNotification("Proposta realizada com sucesso!");
                 }, function (response) {
+                    showNotification("Não foi possível fazer a proposta!");
                     console.log("Erro:" + response.data);
                 });
+            };
+
+            $scope.setShowNewBid = function (job) {
+                $scope.bid.job = job;
+                $scope.bid.value = job.willingToPay;
+                $http.get("" + $rootScope.userAuth.id).then(function (response) {
+                    $scope.bid.provider = response.data;
+                    showNewBid = true;
+                }, function (response) {
+                    showNewBid = false;
+                    showNotification("Erro");
+                })
+            };
+
+            $scope.closeShowNewBid = function () {
+                $scope.bid = {};
+                showNewBid = false;
+            };
+
+            $scope.getShowNewBid = function () {
+                return showNewBid;
             };
 
             $scope.setTab = function (value) {

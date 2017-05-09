@@ -57,6 +57,7 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
             $scope.job.client = response.data;
             $http.post("/job", $scope.job).then(function (response) {
                 showNotification("Serviço criado e disponível para prestadores!", 4000);
+                $scope.job = {};
             }, function (response) {
                 showNotification("Não foi possível criar serviço!");
             });

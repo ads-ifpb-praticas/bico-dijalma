@@ -15,7 +15,7 @@
     <script src="/static/js/shared/jquery-3.1.1.min.js"></script>
     <script src="/static/js/shared/bootstrap.min.js"></script>
 </head>
-<body>
+<body ng-controller="ProviderController">
 <div class="header" ng-controller="HeaderController">
     <header>
         <div class="img-perfil">
@@ -56,28 +56,78 @@
 </div>
 <div class="page-body">
     <h4 class="name-user">Olá, Fulano de tal!</h4>
-    <br><br><br><br>
-    <div class="row">
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info tiger">
-                    <h3>Agenda</h3>
-                </div>
-            </a>
+    <br><br>
+    <div id="services">
+        <h3>Serviços</h3>
+        <ul class="nav nav-tabs">
+            <li ng-class="getTabEquals(1) ? 'active': ''">
+                <a href="#services" ng-click="setTab(1)">Buscar serviços</a>
+            </li>
+            <li ng-class="getTabEquals(2) ? 'active': ''">
+                <a href="#services" ng-click="setTab(2)">Fechado</a>
+            </li>
+            <li ng-class="getTabEquals(3) ? 'active': ''">
+                <a href="#services" ng-click="setTab(3)">Finalizado</a>
+            </li>
+            <li class="active" ng-class="getTabEquals(4) ? 'active': ''">
+                <a href="#services" ng-click="setTab(4)">Agenda</a>
+            </li>
+        </ul>
+    </div>
+    <br><br>
+    <div ng-show="getTabEquals(1)">
+        <div class="input">
+            <div class="icon">
+                <img src="/static/img/icons/jobs.png">
+            </div>
+            <div class="input-dj">
+                <select name="typeService" ng-model="typeOfService" title="Selecione o tipo de serviço"
+                        required>
+                    <option value="">Selecione o tipo de serviço</option>
+                    <option value="HYDRAULIC">Hidráulico</option>
+                    <option value="PAINT">Pintura</option>
+                    <option value="MASONRY">Alvenaria</option>
+                    <option value="REPAIR">Reparo</option>
+                    <option value="ELECTRIC">Elétrica</option>
+                </select>
+            </div>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info deep_space">
-                    <h3>Procurar serviços</h3>
-                </div>
-            </a>
+        <button ng-click="findJobsOpen()">Buscar</button>
+        <br/><br/>
+        <div ng-repeat="jobOpen in jobsOpenTypeService" class="card-accordion">
+            <label class="label-lg">Cliente: {{jobOpen.client.name +" "+ jobOpen.client.lastName}}</label><br/>
+            <label>Localidade</label>
+            <p>Cidade: {{jobOpen.client.placeOfCare.city}}</p>
+            <p>Bairro: {{jobOpen.client.placeOfCare.district}}</p>
+            <label>Detalhes</label>
+            <p>Tipo de serviço: {{services[jobOpen.typeOfService]}}</p>
+            <p>Descrição: {{jobOpen.details}}</p>
+            <p>Proposto a pagar: {{jobOpen.willingToPay}}</p>
+            <button disabled="{{lessEqualsThanZero(jobOpen.bids.length)}}" ng-click="">Fazer proposta</button>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info peach">
-                    <h3>Editar perfil</h3>
-                </div>
-            </a>
+    </div>
+    <div ng-show="getTabEquals(2)">
+        <div ng-show="lessEqualsThanZero(-1)">
+            <h4>Não há serviços fechados!</h4>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(3)">
+        <div ng-show="lessEqualsThanZero(-1)">
+            <h4>Não há serviços finalizados!</h4>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(4)">
+        <div ng-show="lessEqualsThanZero(diary.length)"><h4>Agenda vazia! 😓</h4></div>
+        <div ng-show="!lessEqualsThanZero(diary.length)">
+            <h4>Serviços marcados!</h4>
+            <ul class="nav nav-tabs">
+                <li ng-class="getTabEquals(5) ? 'active': ''">
+                    <a href="#services" ng-click="setTab(5)">Hoje</a>
+                </li>
+                <li ng-class="getTabEquals(6) ? 'active': ''">
+                    <a href="#services" ng-click="setTab(6)">Fechado</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -97,7 +147,7 @@
 
 <script src="/static/js/main.js"></script>
 <script src="/static/js/controllers/headerController.js"></script>
-<script src="/static/js/controllers/clientController.js"></script>
+<script src="/static/js/controllers/providerController.js"></script>
 <script src="/static/js/shared/input-file.js"></script>
 <script src="/static/js/shared/notificationEffect.js"></script>
 </body>

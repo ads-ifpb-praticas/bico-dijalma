@@ -47,3 +47,31 @@ app.factory('locateUser', function (authenticationService, $http, $rootScope) {
         }
     }
 });
+
+app.factory('providerService', function ($http, $rootScope, $q) {
+
+    return {
+
+        getDiary: function (idProvider) {
+            $http.get("/provider/diary/{id}").then(function (response) {
+
+            }, function (response) {
+
+            });
+        },
+
+        getJobsOpenTypeService: function (typeOfService) {
+            var deferred = $q.defer();
+
+        },
+
+        getYourJobsClose: function (idProvider) {
+
+            $http.get("/job/provider/close/" + idProvider).then(function (response) {
+                return response;
+            }, function (response) {
+
+            });
+        }
+    }
+});

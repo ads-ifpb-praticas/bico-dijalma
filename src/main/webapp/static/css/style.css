@@ -262,9 +262,9 @@ button:hover {
 }
 
 .modal-notification {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    bottom: 100px;
+    bottom: 70px;
     display: none;
 }
 
@@ -299,7 +299,7 @@ button:hover {
 .card-accordion button {
     position: absolute;
     right: 20px;
-    top: 2px;
+    top: 10px;
 }
 
 .form-service {
@@ -318,4 +318,8 @@ button:disabled:hover {
 
 .label-lg {
     font-size: 20px;
+}
+
+.label-md {
+    font-size: 16px;
 }

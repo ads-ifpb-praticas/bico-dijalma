@@ -158,7 +158,7 @@
         </div>
         <div class="modal-body">
             <div class="card-accordion" ng-repeat="bidJob in bidsJob">
-                <button>Aceitar</button>
+                <button ng-click="confirmBid(bidJOb)">Aceitar</button>
                 <label class="label-lg">Prestador do serviço: {{bidJob.provider.name + " " +
                     bidJob.provider.lastName}}</label>
                 <br/>

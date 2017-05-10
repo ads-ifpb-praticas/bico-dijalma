@@ -40,6 +40,16 @@ public class BidController {
         }
     }
 
+    @PutMapping("/accept/{id")
+    public ResponseEntity acceptBid(@PathVariable Long id, @RequestBody Bid bid) {
+        boolean b = service.acceptBid(id, bid);
+        if (b) {
+            return new ResponseEntity(id, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(id, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity save(@PathVariable Long id, @RequestBody BidVO bidVO) {
         Bid save = service.edit(id, bidVO.toBid());

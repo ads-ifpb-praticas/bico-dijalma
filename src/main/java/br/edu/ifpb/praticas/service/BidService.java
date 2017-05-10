@@ -20,6 +20,8 @@ public class BidService {
     private BidRepository dao;
     @Autowired
     private JobService jobService;
+    @Autowired
+    private EmailTask emailTask;
 
     public Bid save(Bid bid) {
         return dao.save(bid);
@@ -50,5 +52,27 @@ public class BidService {
         }
 
         return bidsFinal;
+    }
+
+    public boolean acceptBid(Long id, Bid bid) {
+        Job job = jobService.findOne(bid.getJob().getId());
+        List<Bid> bidsFromJob = findBidsFromJob(job.getId());
+        sendEmailsToBidRefused(bidsFromJob);
+        bidsFromJob.remove(bid);
+        dao.delete(bidsFromJob);
+        sendEmailTOBidAccept(bid);
+        job.setDealBid(bid);
+        Job edit = jobService.edit(id, job);
+        return edit != null;
+    }
+
+    private void sendEmailsToBidRefused(List<Bid> bids) {
+        for (Bid b : bids) {
+            new Thread(() -> emailTask.sendEmailToProvidersRefusedBid(b.getProvider().getEmail(), b)).start();
+        }
+    }
+
+    private void sendEmailTOBidAccept(Bid bid) {
+        new Thread(() -> emailTask.sendEmailToProvidersAccept(bid.getProvider().getEmail(), bid)).start();
     }
 }

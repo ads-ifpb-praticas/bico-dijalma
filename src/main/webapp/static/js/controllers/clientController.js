@@ -111,5 +111,15 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
     $scope.closeBidsOfJob = function () {
         $scope.bidsJob = [];
         viewBids = false;
-    }
+    };
+
+    $scope.confirmBid = function (bid) {
+
+        $http.put("/bid/accept/" + bid.id, bid).then(function (response) {
+            c
+            showNotification("Proposta aceitada!");
+        }, function (response) {
+            showNotification("Não foi possível aceitar essa proposta!");
+        })
+    };
 }]);

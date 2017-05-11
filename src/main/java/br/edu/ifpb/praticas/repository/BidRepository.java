@@ -2,9 +2,9 @@ package br.edu.ifpb.praticas.repository;
 
 import br.edu.ifpb.praticas.model.Bid;
 import br.edu.ifpb.praticas.model.Job;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +20,6 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
 
     List<Bid> findBidsByJob(Job job);
 
+    @Query(value = "SELECT b FROM Bid b, Job j WHERE j.status = 'ABERTO' AND j.id = b.job.id AND b.provider.id = :idProvider")
+    List<Bid> findByProviderAndJobOpen(@Param("idProvider") Long idProvider);
 }

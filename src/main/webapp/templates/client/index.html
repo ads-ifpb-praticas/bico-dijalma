@@ -159,17 +159,16 @@
         <div class="modal-body">
             <div class="card-accordion" ng-repeat="bidJob in bidsJob">
                 <button ng-click="confirmBid(bidJob)">Aceitar</button>
-                <label class="label-lg">Prestador do serviço: {{bidJob.provider.name + " " +
+                <label class="label-lg">Prestador: {{bidJob.provider.name + " " +
                     bidJob.provider.lastName}}</label>
                 <br/>
                 <label>Detalhes da prestador</label>
                 <p>Telefone: {{bidJob.provider.telephone}}</p>
                 <p>Email: {{bidJob.provider.email}}</p>
-                <p>Pontos obtidos na área do serviço: {{bidJob.provider[bidJob.job.typeOfService.toUpperCase()]}}</p>
+                <p>Pontos obtidos na área do serviço: {{bidJob.provider[bidJob.job.typeOfService.toLowerCase()]}}</p>
                 <br/>
                 <label>Informações da proposta</label>
-                <p>Data: {{bidJob.possibleDate.dayOfMonth + "/" + bidJob.possibleDate.monthValue + "/" +
-                    bidJob.possibleDate.year + " - " + dayOfWeek[bidJob.possibleDate.dayOfWeek]}}</p>
+                <p>Data: {{bidJob.possibleDate | date: 'dd/MM/yyyy'}}</p>
                 <p>Valor cobrado: {{bidJob.value | currency}}</p>
             </div>
         </div>

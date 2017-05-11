@@ -16,15 +16,15 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
         'REPAIR': 'Reparo'
     };
 
-    $scope.dayOfWeek = {
-        "MONDAY": "Segunda-Feira",
-        "TUESDAY": "Terça-Feira",
-        "WEDNESDAY": "Quarta-Feira",
-        "THURSDAY": "Quinta-Feira",
-        "FRIDAY": "Sexta-Feira",
-        "SATURDAY": "Sábado",
-        "SUNDAY": "Domingo"
-    };
+    // $scope.dayOfWeek = {
+    //     "MONDAY": "Segunda-Feira",
+    //     "TUESDAY": "Terça-Feira",
+    //     "WEDNESDAY": "Quarta-Feira",
+    //     "THURSDAY": "Quinta-Feira",
+    //     "FRIDAY": "Sexta-Feira",
+    //     "SATURDAY": "Sábado",
+    //     "SUNDAY": "Domingo"
+    // };
 
     $scope.job = {};
     $scope.jobsOpen = [];

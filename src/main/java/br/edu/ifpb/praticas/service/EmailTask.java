@@ -1,6 +1,7 @@
 package br.edu.ifpb.praticas.service;
 
 import br.edu.ifpb.praticas.model.Bid;
+import br.edu.ifpb.praticas.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -79,7 +80,7 @@ public class EmailTask {
         String subject = "BICO - Resultado da proposta!";
         String txtHtml = "<div>" +
                 "<h2>Infelizmente outra proposta foi aceita para o serviço do cliente "
-                + bid.getJob().getClient().getName() + bid.getJob().getClient().getLastName() + "." +
+                + bid.getJob().getClient().getName() + " " + bid.getJob().getClient().getLastName() + "." +
                 "</h2>" +
                 "<label>Detalhes: " + bid.getJob().getDetails() + "</label>" +
                 "</div>";
@@ -87,14 +88,14 @@ public class EmailTask {
         prepareAndSend(recipient, subject, txtHtml);
     }
 
-    public void sendEmailToProvidersAccept(String recipient, Bid bid) {
+    public void sendEmailToProvidersAccept(String recipient, Job job) {
 
         String subject = "BICO - Resultado da proposta!";
         String txtHtml = "<div>" +
                 "<h2>Parabéns! A sua proposta foi aceita para o serviço do cliente "
-                + bid.getJob().getClient().getName() + bid.getJob().getClient().getLastName() + "." +
+                + job.getClient().getName() + " " + job.getClient().getLastName() + "." +
                 "</h2>" +
-                "<label>Detalhes: " + bid.getJob().getDetails() + "</label>" +
+                "<label>Detalhes: " + job.getDetails() + "</label>" +
                 "</div>";
 
         prepareAndSend(recipient, subject, txtHtml);

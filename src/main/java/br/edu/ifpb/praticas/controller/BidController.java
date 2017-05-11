@@ -1,5 +1,6 @@
 package br.edu.ifpb.praticas.controller;
 
+import br.edu.ifpb.praticas.Exception.ProviderException;
 import br.edu.ifpb.praticas.form.BidVO;
 import br.edu.ifpb.praticas.model.Bid;
 import br.edu.ifpb.praticas.service.BidService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,5 +71,14 @@ public class BidController {
     @GetMapping("/job/{id}")
     public List<Bid> findBidsFromJob(@PathVariable Long id) {
         return service.findBidsFromJob(id);
+    }
+
+    @GetMapping("/provider/{idProvider}")
+    public List<Bid> findBidsOfTheProvider(@PathVariable Long idProvider) {
+        try {
+            return service.findBidsFromIdProvider(idProvider);
+        } catch (ProviderException e) {
+            return new ArrayList<>();
+        }
     }
 }

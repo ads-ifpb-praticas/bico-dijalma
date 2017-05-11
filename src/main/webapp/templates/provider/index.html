@@ -55,13 +55,16 @@
     <div class="backdrop"></div>
 </div>
 <div class="page-body">
-    <h4 class="name-user">Olá, Fulano de tal!</h4>
+    <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}</h4>
     <br><br>
     <div id="services">
         <h3>Serviços</h3>
         <ul class="nav nav-tabs">
             <li ng-class="getTabEquals(1) ? 'active': ''">
                 <a href="#services" ng-click="setTab(1)">Buscar serviços</a>
+            </li>
+            <li ng-class="getTabEquals(5) ? 'active': ''">
+                <a href="#services" ng-click="setTab(5)">Suas Propostas</a>
             </li>
             <li ng-class="getTabEquals(2) ? 'active': ''">
                 <a href="#services" ng-click="setTab(2)">Fechado</a>
@@ -92,7 +95,7 @@
                 </select>
             </div>
         </div>
-        <button ng-click="findJobsOpen()">Buscar</button>
+        <button ng-click="findJobsOpen(true)">Buscar</button>
         <br/><br/>
         <div ng-repeat="jobOpen in jobsOpenTypeService" class="card-accordion">
             <label class="label-lg">Cliente: {{jobOpen.client.name +" "+ jobOpen.client.lastName}}</label><br/>
@@ -121,13 +124,35 @@
         <div ng-show="!lessEqualsThanZero(diary.length)">
             <h4>Serviços marcados!</h4>
             <ul class="nav nav-tabs">
-                <li ng-class="getTabEquals(5) ? 'active': ''">
-                    <a href="#services" ng-click="setTab(5)">Hoje</a>
-                </li>
                 <li ng-class="getTabEquals(6) ? 'active': ''">
-                    <a href="#services" ng-click="setTab(6)">Fechado</a>
+                    <a href="#services" ng-click="setTab(6)">Hoje</a>
+                </li>
+                <li ng-class="getTabEquals(7) ? 'active': ''">
+                    <a href="#services" ng-click="setTab(7)">Fechado</a>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(5)">
+        <div ng-show="lessEqualsThanZero(bids.length)"><h4>Você não tem propostas feitas! 😓</h4></div>
+        <div ng-show="!lessEqualsThanZero(bids.length)">
+            <br><br>
+            <div ng-repeat="bidProvider in bids" class="card-accordion">
+                <button>Editar</button>
+                <label class="label-lg">Cliente: {{bidProvider.job.client.name + " " +
+                    bidProvider.job.client.lastName}}</label>
+                <br/>
+                <label>Localidade</label>
+                <p>Cidade: {{bidProvider.job.client.placeOfCare.city}}</p>
+                <p>Bairro: {{bidProvider.job.client.placeOfCare.district}}</p>
+                <label>Detalhes</label>
+                <p>Tipo de serviço: {{services[bidProvider.job.typeOfService]}}</p>
+                <p>Descrição: {{bidProvider.job.details}}</p>
+                <p>Proposto a pagar: <label>{{bidProvider.job.willingToPay | currency}}</label></p>
+                <label>Sua oferta</label>
+                <p>Data: {{bidProvider.possibleDate | date: 'dd/MM/yyyy'}}</p>
+                <p>Valor cobrado: {{bidProvider.value | currency}}</p>
+            </div>
         </div>
     </div>
 </div>

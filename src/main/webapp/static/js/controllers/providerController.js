@@ -10,6 +10,7 @@ angular.module('main').controller('ProviderController',
             var tab = 4;
             var showNewBid = false;
             $scope.bid = {};
+            $scope.bids = [];
 
             $scope.services = {
                 'ELECTRIC': 'Elétrica',
@@ -31,13 +32,15 @@ angular.module('main').controller('ProviderController',
             //     $scope.diary = [];
             // });
 
-            $scope.findJobsOpen = function () {
+            $scope.findJobsOpen = function (showNotif) {
 
                 if ($scope.typeOfService !== "") {
                     $http.get("/job//provider/" + $rootScope.userAuth.id + "/" + $scope.typeOfService).then(function (response) {
                         $scope.jobsOpenTypeService = response.data;
                         if ($scope.lessEqualsThanZero(response.data)) {
-                            showNotification("Não há serviços disponíves desse tipo!");
+                            if (showNotif) {
+                                showNotification("Não há serviços disponíves desse tipo!");
+                            }
                         }
                     }, function (response) {
                         $scope.jobsOpenTypeService = [];
@@ -51,7 +54,7 @@ angular.module('main').controller('ProviderController',
                 console.log($scope.bid);
                 $http.post("/bid/", $scope.bid).then(function (response) {
                     $scope.closeShowNewBid();
-                    console.log(response.data);
+                    $scope.findJobsOpen(false);
                     showNotification("Proposta realizada com sucesso!");
                 }, function (response) {
                     showNotification("Não foi possível fazer a proposta!");
@@ -84,6 +87,10 @@ angular.module('main').controller('ProviderController',
                 if (value === undefined || value === null) {
                     tab = 4;
                 } else {
+                    if (value === 5) {
+                        $scope.getYOurBids();
+                    }
+
                     tab = value;
                 }
             };
@@ -95,4 +102,13 @@ angular.module('main').controller('ProviderController',
             $scope.lessEqualsThanZero = function (value) {
                 return value <= 0;
             };
+
+            $scope.getYOurBids = function () {
+                $http.get("/bid//provider/" + $rootScope.userAuth.id).then(function (response) {
+                    $scope.bids = response.data;
+                }, function (response) {
+                    $scope.bids = [];
+                    showNotification("Não foi possível buscar suas propostas!");
+                });
+            }
         }]);

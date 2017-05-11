@@ -1,5 +1,9 @@
 package br.edu.ifpb.praticas.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -30,6 +34,8 @@ public class Bid implements Serializable {
     private Job job;
     @OneToOne
     private Provider provider;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate possibleDate;
     private BigDecimal value;
 

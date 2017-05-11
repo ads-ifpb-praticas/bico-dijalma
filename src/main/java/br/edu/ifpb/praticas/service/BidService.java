@@ -1,5 +1,6 @@
 package br.edu.ifpb.praticas.service;
 
+import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.model.Bid;
 import br.edu.ifpb.praticas.model.Job;
 import br.edu.ifpb.praticas.repository.BidRepository;
@@ -57,11 +58,14 @@ public class BidService {
     public boolean acceptBid(Long id, Bid bid) {
         Job job = jobService.findOne(bid.getJob().getId());
         List<Bid> bidsFromJob = findBidsFromJob(job.getId());
-        sendEmailsToBidRefused(bidsFromJob);
-        bidsFromJob.remove(bid);
+        bidsFromJob = removeBidFromID(bid.getId(), bidsFromJob);
+        if (bidsFromJob.size() > 0) {
+            sendEmailsToBidRefused(bidsFromJob);
+        }
         dao.delete(bidsFromJob);
         sendEmailTOBidAccept(bid);
         job.setDealBid(bid);
+        job.setStatus(StatusJob.FECHADO);
         Job edit = jobService.edit(id, job);
         return edit != null;
     }
@@ -74,5 +78,17 @@ public class BidService {
 
     private void sendEmailTOBidAccept(Bid bid) {
         new Thread(() -> emailTask.sendEmailToProvidersAccept(bid.getProvider().getEmail(), bid)).start();
+    }
+
+    private List<Bid> removeBidFromID(Long id, List<Bid> bids) {
+        List<Bid> bidsCopy = bids;
+
+        for (Bid b : bidsCopy) {
+            if (Objects.equals(b.getId(), id)) {
+                bids.remove(b);
+            }
+        }
+
+        return bids;
     }
 }

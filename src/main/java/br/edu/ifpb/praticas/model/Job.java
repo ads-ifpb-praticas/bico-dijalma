@@ -2,13 +2,16 @@ package br.edu.ifpb.praticas.model;
 
 import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.enums.TypeService;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 17/02/17 - 10:52
@@ -33,7 +36,10 @@ public class Job implements Serializable {
     @OneToOne
     private Bid dealBid;
     private String details;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dealDate;
+    @Enumerated(EnumType.STRING)
     private StatusJob status;
     private BigDecimal willingToPay;
 

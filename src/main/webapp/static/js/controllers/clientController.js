@@ -114,10 +114,12 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
     };
 
     $scope.confirmBid = function (bid) {
-
+        console.log(bid);
         $http.put("/bid/accept/" + bid.id, bid).then(function (response) {
-            c
+            console.log(response.data);
             showNotification("Proposta aceitada!");
+            $scope.closeBidsOfJob();
+            $scope.getJobsOpen();
         }, function (response) {
             showNotification("Não foi possível aceitar essa proposta!");
         })

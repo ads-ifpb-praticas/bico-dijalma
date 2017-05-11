@@ -279,6 +279,7 @@ button:hover {
     width: 100%;
     bottom: 70px;
     display: none;
+    z-index: 4;
 }
 
 .text-notification {

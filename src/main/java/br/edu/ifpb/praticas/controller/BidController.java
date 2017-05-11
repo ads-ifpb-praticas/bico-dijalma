@@ -40,7 +40,7 @@ public class BidController {
         }
     }
 
-    @PutMapping("/accept/{id")
+    @PutMapping("/accept/{id}")
     public ResponseEntity acceptBid(@PathVariable Long id, @RequestBody Bid bid) {
         boolean b = service.acceptBid(id, bid);
         if (b) {

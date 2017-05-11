@@ -34,7 +34,7 @@ angular.module('main').controller('ProviderController',
             $scope.findJobsOpen = function () {
 
                 if ($scope.typeOfService !== "") {
-                    $http.get("/job/type/" + $scope.typeOfService).then(function (response) {
+                    $http.get("/job//provider/" + $rootScope.userAuth.id + "/" + $scope.typeOfService).then(function (response) {
                         $scope.jobsOpenTypeService = response.data;
                         if ($scope.lessEqualsThanZero(response.data)) {
                             showNotification("Não há serviços disponíves desse tipo!");

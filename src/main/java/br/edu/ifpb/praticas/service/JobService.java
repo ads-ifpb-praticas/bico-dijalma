@@ -3,6 +3,7 @@ package br.edu.ifpb.praticas.service;
 import br.edu.ifpb.praticas.Exception.ClientException;
 import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.enums.TypeService;
+import br.edu.ifpb.praticas.model.Bid;
 import br.edu.ifpb.praticas.model.Client;
 import br.edu.ifpb.praticas.model.Job;
 import br.edu.ifpb.praticas.repository.JobRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io" target="_blank">dijalma</a> on 07/05/17.
@@ -23,6 +25,8 @@ public class JobService {
     private JobRepository dao;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private BidService bidService;
 
     public Job findOne(Long id) {
         return dao.findOne(id);
@@ -49,6 +53,29 @@ public class JobService {
 
     public List<Job> jobsClientFinish(Long idClient) throws ClientException {
         return jobsClient(idClient, StatusJob.FINALIZADO);
+    }
+
+    public List<Job> jobsOpenWithoutBidProviderAndTypeService(Long idProvider, TypeService typeService) {
+        List<Job> jobs = jobsTypeServiceOpen(typeService);
+        List<Job> jobsResult = new ArrayList<>();
+        for (Job j : jobs) {
+            List<Bid> bids = bidService.findBidsFromJob(j.getId());
+            if (!verifyBidToProvider(idProvider, bids)) {
+                jobsResult.add(j);
+            }
+        }
+
+        return jobsResult;
+    }
+
+    private boolean verifyBidToProvider(Long idProvider, List<Bid> bids) {
+        for (Bid b : bids) {
+            if (Objects.equals(b.getProvider().getId(), idProvider)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public List<Job> jobsTypeServiceOpen(TypeService typeService) {

@@ -25,6 +25,6 @@ public interface JobRepository extends CrudRepository<Job, Long> {
 
     List<Job> findByStatusAndDealDate(StatusJob status, LocalDate dealDate);
 
-    @Query("select j from Job j where j.dealBid.provider.id = :idProvider and j.status = 'FECHADO'")
-    List<Job> findJobsByStatusAndProvider(@Param("idProvider") Long idProvider);
+    @Query("select j from Job j where j.dealBid.provider.id = :idProvider and j.status = :status")
+    List<Job> findJobsByStatusAndProvider(@Param("idProvider") Long idProvider, @Param("status") StatusJob status);
 }

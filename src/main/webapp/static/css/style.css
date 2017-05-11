@@ -354,3 +354,8 @@ button:disabled:hover {
     margin: 0 auto;
     text-align: center;
 }
+
+.card-height-overflow {
+    max-height: 500px;
+    overflow-y: auto;
+}

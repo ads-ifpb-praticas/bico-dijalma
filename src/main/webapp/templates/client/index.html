@@ -107,6 +107,23 @@
         <div ng-show="lessEqualsThanZero(jobsFinish.length)">
             <h4>Não há serviços finalizados!</h4>
         </div>
+        <div ng-show="!lessEqualsThanZero(jobsFinish.length)">
+            <br/>
+            <div ng-show="!lessEqualsThanZero(jobsFinish.length)">
+                <br/>
+                <div class="card-accordion" ng-repeat="jobFinish in jobsFinish">
+                    <label class="label-lg">Prestador: {{jobFinish.dealBid.provider.name + " " +
+                        jobFinish.dealBid.provider.lastName}}</label>
+                    <br/>
+                    <label>Detalhes da prestador</label>
+                    <p>Telefone: {{jobFinish.dealBid.provider.telephone}}</p>
+                    <p>Email: {{jobFinish.dealBid.provider.email}}</p>
+                    <label>Sobro o serviço</label>
+                    <p>Detalhes: {{jobFinish.details}}</p>
+                    <p>Data: {{jobFinish.dealDate| date:'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div ng-show="getTabEquals(4)">
         <form class="form-service">

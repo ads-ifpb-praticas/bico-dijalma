@@ -42,6 +42,8 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
             $scope.getJobsOpen();
         } else if (value === 2) {
             $scope.findJobsClosed();
+        } else if (value === 3) {
+            $scope.findJobsFinish();
         }
         if (value === undefined || value === null) {
             tab = 4;
@@ -126,4 +128,14 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
             showNotification("Não foi possível buscar os serviços fechados!");
         });
     };
+
+    $scope.findJobsFinish = function () {
+
+        $http.get("/job/finish/client/" + $rootScope.userAuth.id).then(function (response) {
+            $scope.jobsFinish = response.data;
+        }, function (response) {
+            $scope.jobsFinish = [];
+            showNotification("Não foi possível buscar seus serviços finalizados!");
+        })
+    }
 }]);

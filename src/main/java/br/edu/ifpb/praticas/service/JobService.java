@@ -83,7 +83,11 @@ public class JobService {
     }
 
     public List<Job> jobsCloseByProvider(Long idProvider) {
-        return dao.findJobsByStatusAndProvider(idProvider);
+        return dao.findJobsByStatusAndProvider(idProvider, StatusJob.FECHADO);
+    }
+
+    public List<Job> jobsFinishByProvider(Long idProvider) {
+        return dao.findJobsByStatusAndProvider(idProvider, StatusJob.FINALIZADO);
     }
 
     public List<Job> jobsCloseDateDeal(LocalDate dateDeal) {

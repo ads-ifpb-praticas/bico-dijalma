@@ -16,6 +16,7 @@ angular.module('main').controller('ProviderController',
             $scope.bidsAll = [];
             $scope.bidsToday = [];
             $scope.bidsTomorrow = [];
+            $scope.jobsFinish = [];
             $scope.jobsOpenTypeService = [];
             $scope.typeOfService = "";
 
@@ -88,6 +89,8 @@ angular.module('main').controller('ProviderController',
                     } else if (value === 4) {
                         $scope.getJobsClose();
                         createFiltersDate();
+                    } else if (value === 3) {
+                        $scope.getJobsFinish();
                     }
 
                     tab = value;
@@ -130,6 +133,16 @@ angular.module('main').controller('ProviderController',
                     $scope.jobs = [];
                     console.log(response.data);
                     showNotification("Não foi possível atualizar a agenda!!");
+                });
+            };
+
+            $scope.getJobsFinish = function () {
+
+                $http.get("/job/finish/provider/" + $rootScope.userAuth.id).then(function (response) {
+                    $scope.jobsFinish = response.data;
+                }, function (response) {
+                    $scope.jobsFinish = [];
+                    showNotification("Não foi possível buscar os serviços finalizados!");
                 });
             };
 

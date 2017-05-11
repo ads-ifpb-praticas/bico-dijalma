@@ -129,8 +129,23 @@
         </div>
     </div>
     <div ng-show="getTabEquals(3)">
-        <div ng-show="lessEqualsThanZero(-1)">
+        <div ng-show="lessEqualsThanZero(jobsFinish)">
             <h4>Não há serviços finalizados!</h4>
+        </div>
+        <div ng-show="!lessEqualsThanZero(jobsFinish)" class="card-height-overflow">
+            <br/>
+            <div ng-repeat="jobFinish in jobsFinish" class="card-accordion">
+                <label class="label-lg">Cliente: {{jobFinish.client.name + " " +
+                    jobFinish.client.lastName}}</label>
+                <br/>
+                <label>Localidade</label>
+                <p>Cidade: {{jobFinish.client.placeOfCare.city}}</p>
+                <p>Bairro: {{jobFinish.client.placeOfCare.district}}</p>
+                <label>Detalhes</label>
+                <p>Tipo de serviço: {{services[jobFinish.typeOfService]}}</p>
+                <p>Descrição: {{jobFinish.details}}</p>
+                <p>Data: {{jobFinish.dealDate | date:'dd/MM/yyyy'}}</p>
+            </div>
         </div>
     </div>
     <div ng-show="getTabEquals(4)">

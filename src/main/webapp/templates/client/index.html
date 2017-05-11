@@ -30,7 +30,7 @@
         </div>
     </header>
 </div>
-<div class="editImage" ng-show="showSetImage()">
+<div class="modal-fixed" ng-show="showSetImage()">
     <div class="modal-image">
         <div class="close">
             <p ng-click="setUpdateImage()">X</p>
@@ -56,29 +56,120 @@
 </div>
 <div class="page-body">
     <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}!</h4>
-    <br><br><br><br>
-    <div class="row">
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info tiger">
-                    <h3>Serviços solicitados</h3>
-                </div>
-            </a>
+    <br><br>
+    <div id="services">
+        <h3>Serviços</h3>
+        <ul class="nav nav-tabs">
+            <li ng-class="getTabEquals(1) ? 'active': ''"><a href="#services" ng-click="setTab(1)">Solicitados</a></li>
+            <li ng-class="getTabEquals(2) ? 'active': ''"><a href="#services" ng-click="setTab(2)">Fechados</a></li>
+            <li ng-class="getTabEquals(3) ? 'active': ''"><a href="#services" ng-click="setTab(3)">Finalizados</a></li>
+            <li class="active" ng-class="getTabEquals(4) ? 'active': ''"><a href="#services"
+                                                                            ng-click="setTab(4)">Novo</a></li>
+        </ul>
+    </div>
+    <br><br>
+
+    <div ng-show="getTabEquals(1)">
+        <div>
+            <div ng-show="lessEqualsThanZero(jobsOpen.length)">
+                <h4>Não há serviços solicitados!</h4>
+            </div>
+            <div ng-repeat="jobOpen in jobsOpen" class="card-accordion">
+                <label class="label-lg">Tipo de serviço: {{services[jobOpen.typeOfService]}}</label><br/><br/>
+                <h5><label>Detalhes</label></h5>
+                <p>{{jobOpen.details}}</p>
+                <button ng-click="showBidsOfJob(bids[jobOpen.id])">Ver propostas <label class="info-count">{{bids[jobOpen.id].length}}</label>
+                </button>
+            </div>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info deep_space">
-                    <h3>Solitar serviço</h3>
-                </div>
-            </a>
+    </div>
+    <div ng-show="getTabEquals(2)">
+        <div ng-show="lessEqualsThanZero(jobsClosed.length)">
+            <h4>Não há serviços fechados!</h4>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info peach">
-                    <h3>Editar perfil</h3>
-                </div>
-            </a>
+        <div ng-show="!lessEqualsThanZero(jobsClosed.length)">
+            <br/>
+            <div class="card-accordion" ng-repeat="jobClosed in jobsClosed">
+                <button ng-show="false">Finalizar</button>
+                <label class="label-lg">Prestador: {{jobClosed.dealBid.provider.name + " " +
+                    jobClosed.dealBid.provider.lastName}}</label>
+                <br/>
+                <label>Detalhes da prestador</label>
+                <p>Telefone: {{jobClosed.dealBid.provider.telephone}}</p>
+                <p>Email: {{jobClosed.dealBid.provider.email}}</p>
+                <label>Sobro o serviço</label>
+                <p>Detalhes: {{jobClosed.details}}</p>
+                <p>Data: {{jobClosed.dealDate| date:'dd/MM/yyyy'}}</p>
+            </div>
         </div>
+    </div>
+    <div ng-show="getTabEquals(3)">
+        <div ng-show="lessEqualsThanZero(jobsFinish.length)">
+            <h4>Não há serviços finalizados!</h4>
+        </div>
+        <div ng-show="!lessEqualsThanZero(jobsFinish.length)">
+            <br/>
+            <div ng-show="!lessEqualsThanZero(jobsFinish.length)">
+                <br/>
+                <div class="card-accordion" ng-repeat="jobFinish in jobsFinish">
+                    <label class="label-lg">Prestador: {{jobFinish.dealBid.provider.name + " " +
+                        jobFinish.dealBid.provider.lastName}}</label>
+                    <br/>
+                    <label>Detalhes da prestador</label>
+                    <p>Telefone: {{jobFinish.dealBid.provider.telephone}}</p>
+                    <p>Email: {{jobFinish.dealBid.provider.email}}</p>
+                    <label>Sobro o serviço</label>
+                    <p>Detalhes: {{jobFinish.details}}</p>
+                    <p>Data: {{jobFinish.dealDate| date:'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(4)">
+        <form class="form-service">
+            <label>Preecha todos os campos!</label>
+            <div class="input">
+                <div class="icon">
+                    <img src="/static/img/icons/jobs.png">
+                </div>
+                <div class="input-dj">
+                    <select name="typeService" ng-model="job.typeOfService" title="Selecione o tipo de serviço"
+                            required>
+                        <option value="">Selecione o tipo de serviço</option>
+                        <option value="HYDRAULIC">Hidráulico</option>
+                        <option value="PAINT">Pintura</option>
+                        <option value="MASONRY">Alvenaria</option>
+                        <option value="REPAIR">Reparo</option>
+                        <option value="ELECTRIC">Elétrica</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input">
+                <div class="icon">
+                    <img src="/static/img/icons/info.png">
+                </div>
+                <div class="input-dj">
+                    <textarea placeholder="Detalhes" required autocomplete="off" ng-model="job.details"></textarea>
+                </div>
+            </div>
+            <div class="input">
+                <div class="icon">
+                    <img src="/static/img/icons/payment-method.png">
+                </div>
+                <div class="input-dj">
+                    <input placeholder="Disposto a pagar" required autocomplete="off" type="text"
+                           ng-model="job.willingToPay"/>
+                </div>
+                <label id="moneyConverted">Em reais: {{job.willingToPay | currency}}</label>
+            </div>
+            <div class="login-actions">
+                <button class="button-border-right" ng-click="newJobRequested()">Solicitar</button>
+                <div class="label-rotate">
+                    <label>ou</label>
+                </div>
+                <button class="button-border-left" type="reset">Resetar</button>
+            </div>
+        </form>
     </div>
 </div>
 <footer class="footer-relative modal-footer">
@@ -88,6 +179,34 @@
         <h6>Desenvolvido por <a href="http://dijalmasilva.github.io" target="_blank">Dijalma Silva</a></h6>
     </div>
 </footer>
+
+<div class="modal-fixed" ng-show="showBidsFromJob()">
+    <div class="modal-bid">
+        <div class="close">
+            <p ng-click="closeBidsOfJob()">X</p>
+        </div>
+        <div class="modal-title">
+            <h3>Propostas</h3>
+        </div>
+        <div class="modal-body">
+            <div class="card-accordion" ng-repeat="bidJob in bidsJob">
+                <button ng-click="confirmBid(bidJob)">Aceitar</button>
+                <label class="label-lg">Prestador: {{bidJob.provider.name + " " +
+                    bidJob.provider.lastName}}</label>
+                <br/>
+                <label>Detalhes da prestador</label>
+                <p>Telefone: {{bidJob.provider.telephone}}</p>
+                <p>Email: {{bidJob.provider.email}}</p>
+                <p>Pontos obtidos na área do serviço: {{bidJob.provider[bidJob.job.typeOfService.toLowerCase()]}}</p>
+                <br/>
+                <label>Informações da proposta</label>
+                <p>Data: {{bidJob.possibleDate | date: 'dd/MM/yyyy'}}</p>
+                <p>Valor cobrado: {{bidJob.value | currency}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="backdrop"></div>
+</div>
 
 <div class="modal-notification">
     <div class="text-notification">

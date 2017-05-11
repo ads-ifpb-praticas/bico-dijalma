@@ -1,5 +1,9 @@
 package br.edu.ifpb.praticas.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -30,7 +34,9 @@ public class Bid implements Serializable {
     private Job job;
     @OneToOne
     private Provider provider;
-    private LocalDate possibleData;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate possibleDate;
     private BigDecimal value;
 
     public Long getId() {
@@ -65,11 +71,11 @@ public class Bid implements Serializable {
         this.value = value;
     }
 
-    public LocalDate getPossibleData() {
-        return possibleData;
+    public LocalDate getPossibleDate() {
+        return possibleDate;
     }
 
-    public void setPossibleData(LocalDate possibleData) {
-        this.possibleData = possibleData;
+    public void setPossibleDate(LocalDate possibleDate) {
+        this.possibleDate = possibleDate;
     }
 }

@@ -2,13 +2,16 @@ package br.edu.ifpb.praticas.model;
 
 import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.enums.TypeService;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by <a href="http://dijalmasilva.github.io/" target="_blank">Dijalma Silva</a> on 17/02/17 - 10:52
@@ -26,15 +29,19 @@ public class Job implements Serializable {
 
             })
     private Long id;
-    @Transient
+    @Enumerated(EnumType.STRING)
     private TypeService typeOfService;
     @OneToOne
     private Client client;
-    @OneToMany(mappedBy = "job")
-    private List<Bid> bids;
+    @OneToOne
+    private Bid dealBid;
     private String details;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dealDate;
+    @Enumerated(EnumType.STRING)
     private StatusJob status;
+    private BigDecimal willingToPay;
 
     public Long getId() {
         return id;
@@ -68,22 +75,6 @@ public class Job implements Serializable {
         this.details = details;
     }
 
-    public List<Bid> getBids() {
-        return bids;
-    }
-
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
-    }
-
-    public void addBid(Bid bid) {
-        this.bids.add(bid);
-    }
-
-    public void removeBid(Bid bid) {
-        this.bids.remove(bid);
-    }
-
     public StatusJob getStatus() {
         return status;
     }
@@ -98,5 +89,21 @@ public class Job implements Serializable {
 
     public void setDealDate(LocalDate dealDate) {
         this.dealDate = dealDate;
+    }
+
+    public Bid getDealBid() {
+        return dealBid;
+    }
+
+    public void setDealBid(Bid dealBid) {
+        this.dealBid = dealBid;
+    }
+
+    public BigDecimal getWillingToPay() {
+        return willingToPay;
+    }
+
+    public void setWillingToPay(BigDecimal willingToPay) {
+        this.willingToPay = willingToPay;
     }
 }

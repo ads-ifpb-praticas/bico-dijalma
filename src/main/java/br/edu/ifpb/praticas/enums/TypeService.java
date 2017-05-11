@@ -5,7 +5,7 @@ package br.edu.ifpb.praticas.enums;
  */
 public enum TypeService {
 
-    ELETRICA("Elétrica"), HIDRAULICA("Hidráulica"), PINTURA("Pintura"), ALVENARIA("Alvenaria"), REPAROS("Reparos");
+    ELECTRIC("Elétrica"), HYDRAULIC("Hidráulica"), PAINT("Pintura"), MASONRY("Alvenaria"), REPAIR("Reparo");
 
     private String name;
 

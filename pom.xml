@@ -5,7 +5,7 @@
 
     <groupId>br.edu.ifpb.praticas</groupId>
     <artifactId>bico</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <name>Bico</name>
@@ -57,6 +57,11 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.0.pr1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -87,6 +92,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

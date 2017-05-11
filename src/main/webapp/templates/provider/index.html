@@ -15,7 +15,7 @@
     <script src="/static/js/shared/jquery-3.1.1.min.js"></script>
     <script src="/static/js/shared/bootstrap.min.js"></script>
 </head>
-<body>
+<body ng-controller="ProviderController">
 <div class="header" ng-controller="HeaderController">
     <header>
         <div class="img-perfil">
@@ -30,7 +30,7 @@
         </div>
     </header>
 </div>
-<div class="editImage" ng-show="showSetImage()">
+<div class="modal-fixed" ng-show="showSetImage()">
     <div class="modal-image">
         <div class="close">
             <p ng-click="setUpdateImage()">X</p>
@@ -55,29 +55,169 @@
     <div class="backdrop"></div>
 </div>
 <div class="page-body">
-    <h4 class="name-user">Olá, Fulano de tal!</h4>
-    <br><br><br><br>
-    <div class="row">
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info tiger">
-                    <h3>Agenda</h3>
-                </div>
-            </a>
+    <h4 class="name-user">Olá, {{userAuth.name + " " + userAuth.lastName}}</h4>
+    <br><br>
+    <div id="services">
+        <h3>Serviços</h3>
+        <ul class="nav nav-tabs">
+            <li ng-class="getTabEquals(1) ? 'active': ''">
+                <a href="#services" ng-click="setTab(1)">Buscar serviços</a>
+            </li>
+            <li ng-class="getTabEquals(2) ? 'active': ''">
+                <a href="#services" ng-click="setTab(2)">Suas propostas</a>
+            </li>
+            <li ng-class="getTabEquals(3) ? 'active': ''">
+                <a href="#services" ng-click="setTab(3)">Finalizado</a>
+            </li>
+            <li class="active" ng-class="getTabEquals(4) ? 'active': ''">
+                <a href="#services" ng-click="setTab(4)">Agenda</a>
+            </li>
+        </ul>
+    </div>
+    <br><br>
+    <div ng-show="getTabEquals(1)">
+        <div class="input">
+            <div class="icon">
+                <img src="/static/img/icons/jobs.png">
+            </div>
+            <div class="input-dj">
+                <select name="typeService" ng-model="typeOfService" title="Selecione o tipo de serviço"
+                        required>
+                    <option value="">Selecione o tipo de serviço</option>
+                    <option value="HYDRAULIC">Hidráulico</option>
+                    <option value="PAINT">Pintura</option>
+                    <option value="MASONRY">Alvenaria</option>
+                    <option value="REPAIR">Reparo</option>
+                    <option value="ELECTRIC">Elétrica</option>
+                </select>
+            </div>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info deep_space">
-                    <h3>Procurar serviços</h3>
-                </div>
-            </a>
+        <button ng-click="findJobsOpen(true)">Buscar</button>
+        <br/><br/>
+        <div ng-repeat="jobOpen in jobsOpenTypeService" class="card-accordion">
+            <label class="label-lg">Cliente: {{jobOpen.client.name +" "+ jobOpen.client.lastName}}</label><br/>
+            <label>Localidade</label>
+            <p>Cidade: {{jobOpen.client.placeOfCare.city}}</p>
+            <p>Bairro: {{jobOpen.client.placeOfCare.district}}</p>
+            <label>Detalhes</label>
+            <p>Tipo de serviço: {{services[jobOpen.typeOfService]}}</p>
+            <p>Descrição: {{jobOpen.details}}</p>
+            <p>Proposto a pagar: <label>{{jobOpen.willingToPay | currency}}</label></p>
+            <button ng-click="setShowNewBid(jobOpen)">Fazer proposta</button>
         </div>
-        <div class="col-sm-4 card">
-            <a href="#">
-                <div class="info peach">
-                    <h3>Editar perfil</h3>
+    </div>
+    <div ng-show="getTabEquals(2)">
+        <div ng-show="lessEqualsThanZero(bids.length)"><h4>Você não tem propostas feitas! 😓</h4></div>
+        <div ng-show="!lessEqualsThanZero(bids.length)">
+            <br><br>
+            <div ng-repeat="bidProvider in bids" class="card-accordion">
+                <button>Editar</button>
+                <label class="label-lg">Cliente: {{bidProvider.job.client.name + " " +
+                    bidProvider.job.client.lastName}}</label>
+                <br/>
+                <label>Localidade</label>
+                <p>Cidade: {{bidProvider.job.client.placeOfCare.city}}</p>
+                <p>Bairro: {{bidProvider.job.client.placeOfCare.district}}</p>
+                <label>Detalhes</label>
+                <p>Tipo de serviço: {{services[bidProvider.job.typeOfService]}}</p>
+                <p>Descrição: {{bidProvider.job.details}}</p>
+                <p>Proposto a pagar: <label>{{bidProvider.job.willingToPay | currency}}</label></p>
+                <label>Sua oferta</label>
+                <p>Data: {{bidProvider.possibleDate | date: 'dd/MM/yyyy'}}</p>
+                <p>Valor cobrado: {{bidProvider.value | currency}}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(3)">
+        <div ng-show="lessEqualsThanZero(jobsFinish)">
+            <h4>Não há serviços finalizados!</h4>
+        </div>
+        <div ng-show="!lessEqualsThanZero(jobsFinish)" class="card-height-overflow">
+            <br/>
+            <div ng-repeat="jobFinish in jobsFinish" class="card-accordion">
+                <label class="label-lg">Cliente: {{jobFinish.client.name + " " +
+                    jobFinish.client.lastName}}</label>
+                <br/>
+                <label>Localidade</label>
+                <p>Cidade: {{jobFinish.client.placeOfCare.city}}</p>
+                <p>Bairro: {{jobFinish.client.placeOfCare.district}}</p>
+                <label>Detalhes</label>
+                <p>Tipo de serviço: {{services[jobFinish.typeOfService]}}</p>
+                <p>Descrição: {{jobFinish.details}}</p>
+                <p>Data: {{jobFinish.dealDate | date:'dd/MM/yyyy'}}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(4)">
+        <div ng-show="lessEqualsThanZero(jobs.length)"><h4>Agenda vazia! 😓</h4></div>
+        <div ng-show="!lessEqualsThanZero(jobs.length)">
+            <br/>
+            <ul class="nav nav-tabs nav-sm">
+                <li ng-class="diaryTabEquals(1) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(1)">Hoje</a>
+                </li>
+                <li ng-class="diaryTabEquals(2) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(2)">Amanhã</a>
+                </li>
+                <li ng-class="diaryTabEquals(3) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(3)">Todos</a>
+                </li>
+            </ul>
+            <br/>
+            <div ng-show="diaryTabEquals(1)">
+                <div ng-show="lessEqualsThanZero(jobs|filterToday)"><h4>Sem serviços para hoje! {{date |
+                    date:'dd/MM/yyyy'}}</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs|filterToday)">
+                    <br/>
+                    <div ng-repeat="jobToday in jobs|filterToday" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobToday.client.name + " " +
+                            jobToday.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobToday.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobToday.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobToday.typeOfService]}}</p>
+                        <p>Descrição: {{jobToday.details}}</p>
+                    </div>
                 </div>
-            </a>
+            </div>
+            <div ng-show="diaryTabEquals(2)">
+                <div ng-show="lessEqualsThanZero(jobs|filterTomorrow)"><h4>Sem serviços para amanhã! {{tomorrow |
+                    date:'dd/MM/yyyy'}}</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs|filterTomorrow)">
+                    <br/>
+                    <div ng-repeat="jobTomorrow in jobs|filterTomorrow" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobTomorrow.client.name + " " +
+                            jobTomorrow.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobTomorrow.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobTomorrow.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobTomorrow.typeOfService]}}</p>
+                        <p>Descrição: {{jobTomorrow.details}}</p>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="diaryTabEquals(3)">
+                <div ng-show="lessEqualsThanZero(jobs.length)"><h4>Nenhum serviço agendado!!</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs.length)">
+                    <br/>
+                    <div ng-repeat="jobAll in jobs" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobAll.client.name + " " +
+                            jobAll.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobAll.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobAll.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobAll.typeOfService]}}</p>
+                        <p>Descrição: {{jobAll.details}}</p>
+                        <p>Data: {{jobAll.dealDate | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -89,6 +229,49 @@
     </div>
 </footer>
 
+<div class="modal-fixed" ng-show="getShowNewBid()">
+    <div class="modal-bid">
+        <div class="close">
+            <p ng-click="closeShowNewBid()">X</p>
+        </div>
+        <div class="modal-title">
+            <h3>Proposta</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <label class="label label-default">Data para realizar serviço</label>
+                <div class="input">
+                    <div class="icon">
+                        <img src="/static/img/icons/calendar.png">
+                    </div>
+                    <div class="input-dj">
+                        <input type="date" ng-model="bid.possibleDate"/>
+                    </div>
+                </div>
+                <label class="label label-default">Valor pelo serviço</label>
+                <div class="input">
+                    <div class="icon">
+                        <img src="/static/img/icons/give-money.png">
+                    </div>
+                    <div class="input-dj">
+                        <input ng-model="bid.value" placeholder="Valor a cobrar">
+                    </div>
+                    Em reais: {{bid.value | currency}}
+                </div>
+                <br/>
+                <div>
+                    <button class="button-border-right" ng-click="newBid()">Confirmar</button>
+                    <div class="label-rotate">
+                        <label>ou</label>
+                    </div>
+                    <button class="button-border-left" ng-click="closeShowNewBid()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="backdrop"></div>
+</div>
+
 <div class="modal-notification">
     <div class="text-notification">
         <h4 id="notification">Notificação</h4>
@@ -97,7 +280,7 @@
 
 <script src="/static/js/main.js"></script>
 <script src="/static/js/controllers/headerController.js"></script>
-<script src="/static/js/controllers/clientController.js"></script>
+<script src="/static/js/controllers/providerController.js"></script>
 <script src="/static/js/shared/input-file.js"></script>
 <script src="/static/js/shared/notificationEffect.js"></script>
 </body>

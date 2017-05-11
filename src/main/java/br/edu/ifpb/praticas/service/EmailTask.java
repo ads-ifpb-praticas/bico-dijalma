@@ -1,5 +1,7 @@
 package br.edu.ifpb.praticas.service;
 
+import br.edu.ifpb.praticas.model.Bid;
+import br.edu.ifpb.praticas.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -68,6 +70,32 @@ public class EmailTask {
         String txtHtml = "<div>" +
                 "<h2>Sua conta foi ativada e agora você pode utilizar nosso sistema!</h2>" +
                 "<h3>Para acessar o sistema <a href='http://localhost:8080/' target='_blank'>clique aqui</a>!</h3>" +
+                "</div>";
+
+        prepareAndSend(recipient, subject, txtHtml);
+    }
+
+    public void sendEmailToProvidersRefusedBid(String recipient, Bid bid) {
+
+        String subject = "BICO - Resultado da proposta!";
+        String txtHtml = "<div>" +
+                "<h2>Infelizmente outra proposta foi aceita para o serviço do cliente "
+                + bid.getJob().getClient().getName() + " " + bid.getJob().getClient().getLastName() + "." +
+                "</h2>" +
+                "<label>Detalhes: " + bid.getJob().getDetails() + "</label>" +
+                "</div>";
+
+        prepareAndSend(recipient, subject, txtHtml);
+    }
+
+    public void sendEmailToProvidersAccept(String recipient, Job job) {
+
+        String subject = "BICO - Resultado da proposta!";
+        String txtHtml = "<div>" +
+                "<h2>Parabéns! A sua proposta foi aceita para o serviço do cliente "
+                + job.getClient().getName() + " " + job.getClient().getLastName() + "." +
+                "</h2>" +
+                "<label>Detalhes: " + job.getDetails() + "</label>" +
                 "</div>";
 
         prepareAndSend(recipient, subject, txtHtml);

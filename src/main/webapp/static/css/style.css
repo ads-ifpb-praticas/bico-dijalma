@@ -347,3 +347,10 @@ button:disabled:hover {
     margin: 0;
     padding: 1px;
 }
+
+.nav-sm {
+    width: 70%;
+    min-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}

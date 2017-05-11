@@ -8,9 +8,16 @@ angular.module('main').controller('ProviderController',
 
             locateUser.findUser();
             var tab = 4;
+            var diaryTab = 4;
             var showNewBid = false;
             $scope.bid = {};
             $scope.bids = [];
+            $scope.jobs = [];
+            $scope.bidsAll = [];
+            $scope.bidsToday = [];
+            $scope.bidsTomorrow = [];
+            $scope.jobsOpenTypeService = [];
+            $scope.typeOfService = "";
 
             $scope.services = {
                 'ELECTRIC': 'Elétrica',
@@ -20,17 +27,6 @@ angular.module('main').controller('ProviderController',
                 'REPAIR': 'Reparo'
             };
 
-            $scope.diary = [];
-            $scope.jobsOpenTypeService = [];
-            $scope.typeOfService = "";
-
-            // var findDiary = providerService.getDiary($rootScope.userAuth.id);
-            //
-            // findDiary.then(function (response) {
-            //     $scope.diary = response;
-            // }, function (response) {
-            //     $scope.diary = [];
-            // });
 
             $scope.findJobsOpen = function (showNotif) {
 
@@ -87,11 +83,22 @@ angular.module('main').controller('ProviderController',
                 if (value === undefined || value === null) {
                     tab = 4;
                 } else {
-                    if (value === 5) {
-                        $scope.getYOurBids();
+                    if (value === 2) {
+                        $scope.getYourBids();
+                    } else if (value === 4) {
+                        $scope.getJobsClose();
+                        createFiltersDate();
                     }
 
                     tab = value;
+                }
+            };
+
+            $scope.setTabDiary = function (value) {
+                if (value === undefined || value === null) {
+                    diaryTab = 1;
+                } else {
+                    diaryTab = value;
                 }
             };
 
@@ -99,16 +106,36 @@ angular.module('main').controller('ProviderController',
                 return tab === value;
             };
 
+            $scope.diaryTabEquals = function (value) {
+                return diaryTab === value;
+            };
+
             $scope.lessEqualsThanZero = function (value) {
                 return value <= 0;
             };
 
-            $scope.getYOurBids = function () {
+            $scope.getYourBids = function () {
                 $http.get("/bid//provider/" + $rootScope.userAuth.id).then(function (response) {
                     $scope.bids = response.data;
                 }, function (response) {
                     $scope.bids = [];
                     showNotification("Não foi possível buscar suas propostas!");
                 });
+            };
+
+            $scope.getJobsClose = function () {
+                $http.get("/job/close/provider/" + $rootScope.userAuth.id).then(function (response) {
+                    $scope.jobs = response.data;
+                }, function (response) {
+                    $scope.jobs = [];
+                    console.log(response.data);
+                    showNotification("Não foi possível atualizar a agenda!!");
+                });
+            };
+
+            var createFiltersDate = function () {
+                $scope.date = new Date();
+                var tomorrow = new Date();
+                $scope.tomorrow = tomorrow.setDate(tomorrow.getDate() + 1);
             }
         }]);

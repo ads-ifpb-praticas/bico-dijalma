@@ -4,7 +4,9 @@ import br.edu.ifpb.praticas.enums.StatusJob;
 import br.edu.ifpb.praticas.enums.TypeService;
 import br.edu.ifpb.praticas.model.Client;
 import br.edu.ifpb.praticas.model.Job;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -22,4 +24,7 @@ public interface JobRepository extends CrudRepository<Job, Long> {
     List<Job> findByStatusAndTypeOfService(StatusJob status, TypeService typeOfService);
 
     List<Job> findByStatusAndDealDate(StatusJob status, LocalDate dealDate);
+
+    @Query("select j from Job j where j.dealBid.provider.id = :idProvider and j.status = 'FECHADO'")
+    List<Job> findJobsByStatusAndProvider(@Param("idProvider") Long idProvider);
 }

@@ -63,11 +63,8 @@
             <li ng-class="getTabEquals(1) ? 'active': ''">
                 <a href="#services" ng-click="setTab(1)">Buscar serviços</a>
             </li>
-            <li ng-class="getTabEquals(5) ? 'active': ''">
-                <a href="#services" ng-click="setTab(5)">Suas Propostas</a>
-            </li>
             <li ng-class="getTabEquals(2) ? 'active': ''">
-                <a href="#services" ng-click="setTab(2)">Fechado</a>
+                <a href="#services" ng-click="setTab(2)">Suas propostas</a>
             </li>
             <li ng-class="getTabEquals(3) ? 'active': ''">
                 <a href="#services" ng-click="setTab(3)">Finalizado</a>
@@ -110,30 +107,6 @@
         </div>
     </div>
     <div ng-show="getTabEquals(2)">
-        <div ng-show="lessEqualsThanZero(-1)">
-            <h4>Não há serviços fechados!</h4>
-        </div>
-    </div>
-    <div ng-show="getTabEquals(3)">
-        <div ng-show="lessEqualsThanZero(-1)">
-            <h4>Não há serviços finalizados!</h4>
-        </div>
-    </div>
-    <div ng-show="getTabEquals(4)">
-        <div ng-show="lessEqualsThanZero(diary.length)"><h4>Agenda vazia! 😓</h4></div>
-        <div ng-show="!lessEqualsThanZero(diary.length)">
-            <h4>Serviços marcados!</h4>
-            <ul class="nav nav-tabs">
-                <li ng-class="getTabEquals(6) ? 'active': ''">
-                    <a href="#services" ng-click="setTab(6)">Hoje</a>
-                </li>
-                <li ng-class="getTabEquals(7) ? 'active': ''">
-                    <a href="#services" ng-click="setTab(7)">Fechado</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div ng-show="getTabEquals(5)">
         <div ng-show="lessEqualsThanZero(bids.length)"><h4>Você não tem propostas feitas! 😓</h4></div>
         <div ng-show="!lessEqualsThanZero(bids.length)">
             <br><br>
@@ -152,6 +125,83 @@
                 <label>Sua oferta</label>
                 <p>Data: {{bidProvider.possibleDate | date: 'dd/MM/yyyy'}}</p>
                 <p>Valor cobrado: {{bidProvider.value | currency}}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(3)">
+        <div ng-show="lessEqualsThanZero(-1)">
+            <h4>Não há serviços finalizados!</h4>
+        </div>
+    </div>
+    <div ng-show="getTabEquals(4)">
+        <div ng-show="lessEqualsThanZero(jobs.length)"><h4>Agenda vazia! 😓</h4></div>
+        <div ng-show="!lessEqualsThanZero(jobs.length)">
+            <br/>
+            <ul class="nav nav-tabs nav-sm">
+                <li ng-class="diaryTabEquals(1) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(1)">Hoje</a>
+                </li>
+                <li ng-class="diaryTabEquals(2) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(2)">Amanhã</a>
+                </li>
+                <li ng-class="diaryTabEquals(3) ? 'active': ''">
+                    <a href="#services" ng-click="setTabDiary(3)">Todos</a>
+                </li>
+            </ul>
+            <br/>
+            <div ng-show="diaryTabEquals(1)">
+                <div ng-show="lessEqualsThanZero(jobs|filterToday)"><h4>Sem serviços para hoje! {{date |
+                    date:'dd/MM/yyyy'}}</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs|filterToday)">
+                    <br/>
+                    <div ng-repeat="jobToday in jobs|filterToday" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobToday.client.name + " " +
+                            jobToday.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobToday.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobToday.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobToday.typeOfService]}}</p>
+                        <p>Descrição: {{jobToday.details}}</p>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="diaryTabEquals(2)">
+                <div ng-show="lessEqualsThanZero(jobs|filterTomorrow)"><h4>Sem serviços para amanhã! {{tomorrow |
+                    date:'dd/MM/yyyy'}}</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs|filterTomorrow)">
+                    <br/>
+                    <div ng-repeat="jobTomorrow in jobs|filterTomorrow" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobTomorrow.client.name + " " +
+                            jobTomorrow.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobTomorrow.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobTomorrow.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobTomorrow.typeOfService]}}</p>
+                        <p>Descrição: {{jobTomorrow.details}}</p>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="diaryTabEquals(3)">
+                <div ng-show="lessEqualsThanZero(jobs.length)"><h4>Nenhum serviço agendado!!</h4></div>
+                <div ng-show="!lessEqualsThanZero(jobs.length)">
+                    <br/>
+                    <div ng-repeat="jobAll in jobs" class="card-accordion">
+                        <label class="label-lg">Cliente: {{jobAll.client.name + " " +
+                            jobAll.client.lastName}}</label>
+                        <br/>
+                        <label>Localidade</label>
+                        <p>Cidade: {{jobAll.client.placeOfCare.city}}</p>
+                        <p>Bairro: {{jobAll.client.placeOfCare.district}}</p>
+                        <label>Detalhes</label>
+                        <p>Tipo de serviço: {{services[jobAll.typeOfService]}}</p>
+                        <p>Descrição: {{jobAll.details}}</p>
+                        <p>Data: {{jobAll.dealDate | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

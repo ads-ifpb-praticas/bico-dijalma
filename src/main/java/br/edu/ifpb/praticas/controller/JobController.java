@@ -97,6 +97,11 @@ public class JobController {
         return jobService.jobsOpenWithoutBidProviderAndTypeService(idProvider, typeService);
     }
 
+    @GetMapping("/close/provider/{idProvider}")
+    public List<Job> jobsCloseByProvider(@PathVariable Long idProvider) {
+        return jobService.jobsCloseByProvider(idProvider);
+    }
+
     @GetMapping("/close/date/{dealDate}")
     public List<Job> jobsCloseDateDeal(@PathVariable LocalDate dealDate) {
         return jobService.jobsCloseDateDeal(dealDate);

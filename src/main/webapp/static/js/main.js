@@ -75,3 +75,48 @@ app.factory('providerService', function ($http, $rootScope, $q) {
         }
     }
 });
+
+app.filter('filterToday', function () {
+
+    return function (items) {
+        var arrayReturn = [];
+        var today = createDateToString(new Date());
+
+        for (var i = 0; i < items.length; i++) {
+            var date = items[i].dealDate;
+            if (date === today) {
+                arrayReturn.push(items[i]);
+            }
+        }
+
+        return arrayReturn;
+    }
+});
+
+app.filter('filterTomorrow', function () {
+
+    return function (items) {
+        var arrayReturn = [];
+        var today = new Date();
+        var date = new Date();
+        date.setDate(today.getDate() + 1);
+        var tomorrow = createDateToString(date);
+
+        for (var i = 0; i < items.length; i++) {
+            var date = items[i].dealDate;
+            if (date === tomorrow) {
+                arrayReturn.push(items[i]);
+            }
+        }
+
+        return arrayReturn;
+    }
+});
+
+function createDateToString(date) {
+    var day = date.getDate();
+    var month = (date.getMonth() + 1) > 9 ? '' : '0' + (date.getMonth() + 1);
+    var year = date.getFullYear();
+    date = year + "-" + month + "-" + day;
+    return date;
+}

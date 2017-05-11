@@ -16,19 +16,9 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
         'REPAIR': 'Reparo'
     };
 
-    // $scope.dayOfWeek = {
-    //     "MONDAY": "Segunda-Feira",
-    //     "TUESDAY": "Terça-Feira",
-    //     "WEDNESDAY": "Quarta-Feira",
-    //     "THURSDAY": "Quinta-Feira",
-    //     "FRIDAY": "Sexta-Feira",
-    //     "SATURDAY": "Sábado",
-    //     "SUNDAY": "Domingo"
-    // };
-
     $scope.job = {};
+    $scope.jobsClosed = [];
     $scope.jobsOpen = [];
-    $scope.jobsClose = [];
     $scope.jobsFinish = [];
     $scope.bids = [];
 
@@ -50,6 +40,8 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
     $scope.setTab = function (value) {
         if (value === 1) {
             $scope.getJobsOpen();
+        } else if (value === 2) {
+            $scope.findJobsClosed();
         }
         if (value === undefined || value === null) {
             tab = 4;
@@ -123,5 +115,15 @@ angular.module('main').controller('ClientController', ['$scope', 'locateUser', '
         }, function (response) {
             showNotification("Não foi possível aceitar essa proposta!");
         })
+    };
+
+    $scope.findJobsClosed = function () {
+
+        $http.get("/job/close/client/" + $rootScope.userAuth.id).then(function (response) {
+            $scope.jobsClosed = response.data;
+        }, function (response) {
+            $scope.jobsClosed = [];
+            showNotification("Não foi possível buscar os serviços fechados!");
+        });
     };
 }]);

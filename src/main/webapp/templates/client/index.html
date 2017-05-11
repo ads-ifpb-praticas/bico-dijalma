@@ -84,8 +84,23 @@
         </div>
     </div>
     <div ng-show="getTabEquals(2)">
-        <div ng-show="lessEqualsThanZero(jobsClose.length)">
+        <div ng-show="lessEqualsThanZero(jobsClosed.length)">
             <h4>Não há serviços fechados!</h4>
+        </div>
+        <div ng-show="!lessEqualsThanZero(jobsClosed.length)">
+            <br/>
+            <div class="card-accordion" ng-repeat="jobClosed in jobsClosed">
+                <button ng-show="false">Finalizar</button>
+                <label class="label-lg">Prestador: {{jobClosed.dealBid.provider.name + " " +
+                    jobClosed.dealBid.provider.lastName}}</label>
+                <br/>
+                <label>Detalhes da prestador</label>
+                <p>Telefone: {{jobClosed.dealBid.provider.telephone}}</p>
+                <p>Email: {{jobClosed.dealBid.provider.email}}</p>
+                <label>Sobro o serviço</label>
+                <p>Detalhes: {{jobClosed.details}}</p>
+                <p>Data: {{jobClosed.dealDate| date:'dd/MM/yyyy'}}</p>
+            </div>
         </div>
     </div>
     <div ng-show="getTabEquals(3)">
